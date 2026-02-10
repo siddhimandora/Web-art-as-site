@@ -1,0 +1,221 @@
+<!doctype html>
+<html>
+<head>
+  <title>saturn</title>
+  <link rel="icon" type="image/png" href="favicon1.png">
+  <meta charset="UTF-8">
+
+  <link href="https://fonts.googleapis.com/css2?family=Ballet&display=swap" rel="stylesheet">
+
+  <style>
+    body{
+      background-color:#0400ff;
+      overflow-x:hidden; /* allow vertical scroll */
+    }
+
+
+    .planet{
+      position:absolute;
+      opacity:.6;
+      transition:1s;
+    }
+
+    .planet:hover{
+      transform:scale(1.15);
+      filter:drop-shadow(0 0 20px cyan);
+      opacity:.9;
+    }
+
+    .lyric{
+      position:absolute;
+      width:32vw;
+      color:red;
+      font-family:'Ballet', cursive;
+      font-size:5vh;
+      line-height:5.5vh;
+      text-shadow:4px 3px 1px white;
+      transition:1s;
+      z-index:40;
+    }
+
+    .lyric:hover{
+      letter-spacing:.2vw;
+      transform:scale(1.02);
+    }
+
+    #saturn1{top:22vh; right:10vw; width:16vw;}
+    #saturn2{top:2vh; right:26vw; width:48vw;}
+    #saturn3{top:78vh; right:18vw; width:30vw;}
+    #saturn4{top:50vh; right:4vw; width:40vw;}
+    #saturn5{top:3vh; left:3vw; width:32vw;}
+    #saturn6{top:80vh; left:2vw; width:40vw;}
+    #saturn7{top:90vh; left:28vw; width:30vw;}
+
+    
+    #saturnlink{
+      position:absolute;
+      top:85vh;
+      right:22vw;
+      z-index:50;
+    }
+
+    #saturnlink img{
+      width:10vw;
+      opacity:.8;
+      transition:2s;
+    }
+
+    #saturnlink:hover img{
+      width:18vw;
+      opacity:1;
+      filter:invert(100%);
+    }
+
+    
+    #poppy1{
+      position:absolute;
+      top:8vh;
+      left:6vw;
+      width:22vw;
+      opacity:.5;
+      z-index:10;
+      border-radius:30% 60% 15% 10%;
+    }
+
+    #verse1{ top:10vh;  left:32vw; opacity:1;}
+    #verse2{ top:20vh;  left:8vw;  opacity:.75;}
+    #verse3{ top:35vh;  right:6vw; opacity:.6;}
+    #verse4{ top:40vh;  left:30vw; opacity:.8;}
+    #verse5{ top:50vh; right:8vw; opacity:.6;}
+    #verse6{ top:60vh; left:10vw; opacity:.7;}
+    #verse7{ top:70vh; right:20vw; opacity:.8;}
+    #verse8{ top:80vh; left:25vw; opacity:.5;}
+    #verse9{ top:90vh; right:10vw; opacity:.65;}
+    #verse10{ top:100vh; left:5vw; opacity:.55;}
+    #verse11{ top:110vh; right:30vw; opacity:.6;}
+    #verse12{ top:120vh; left:20vw; opacity:.5;}
+    #verse13{ top:130vh; right:5vw; opacity:.4;}
+
+    a{ text-decoration:none; }
+
+    #universe:link{ color:white; }
+    #universe:visited{ color:#8fd3ff; }
+    #universe:hover{ color:cyan; text-shadow:0 0 15px cyan  }
+    #universe:active{ color:red; }
+
+    #life:link{ color:white; }
+    #life:visited{ color:#8fd3ff; }
+    #life:hover{ color:cyan; text-shadow:0 0 15px cyan }
+    #life:active{ color:red; }
+
+    #intrusive:link{ color:rgb(77,255,53); }
+    #intrusive:visited{ color:#8fd3ff; }
+    #intrusive:hover{ color:cyan; text-shadow:0 0 15px cyan }
+    #intrusive:active{ color:red }
+
+  </style>
+</head>
+
+<body>
+
+  <img class="planet" id="saturn1" src="saturn1.jpg" alt="">
+  <img class="planet" id="saturn2" src="saturn2.jpg" alt="">
+  <img class="planet" id="saturn3" src="saturn3.jpg" alt="">
+  <img class="planet" id="saturn4" src="saturn4.jpg" alt="">
+  <img class="planet" id="saturn5" src="saturn5.jpg" alt="">
+  <img class="planet" id="saturn6" src="saturn6.gif" alt="">
+  <img class="planet" id="saturn7" src="saturn7.gif" alt="">
+
+  
+  <a id="saturnlink" href="https://www.youtube.com/watch?v=EFO_bsg1sw8">
+    <img src="saturn1.jpg" alt="">
+  </a>
+
+  <!-- video -->
+  <video id="poppy1" loop controls>
+    <source src="poppy1.mp4" type="video/mp4">
+  </video>
+
+  <!-- lyrics split into many divs (same class, different ids) -->
+  <div class="lyric" id="verse1">
+    If there's another <a id="universe" href="https://science.nasa.gov/saturn/">universe</a><br>
+    Please make some noise (Noise)<br>
+    Give me a sign (Sign)
+  </div>
+
+  <div class="lyric" id="verse2">
+    This can't be <a id="life" href="https://mitpress.mit.edu/9780262554091/what-is-life/">life</a><br>
+    If there's a point to losing love<br>
+    Repeating pain (Why?)
+  </div>
+
+  <div class="lyric" id="verse3">
+    It's all the same (Same)<br>
+    I hate this place
+  </div>
+
+  <div class="lyric" id="verse4">
+    Stuck in this paradigm<br>
+    Don't believe in paradise
+  </div>
+
+  <div class="lyric" id="verse5">
+    This must be what Hell is like<br>
+    There's got to be more, got to be more
+  </div>
+
+  <div class="lyric" id="verse6">
+    Sick of this head of mine<br>
+    <a id="intrusive" href="https://www.boredpanda.com/funny-cute-doggo-memes/">Intrusive</a> thoughts, they paralyze
+  </div>
+
+  <div class="lyric" id="verse7">
+    Nirvana's not as advertised<br>
+    There's got to be more, been here before
+  </div>
+
+  <div class="lyric" id="verse8">
+    Ooh… life's better on Saturn<br>
+    Got to break this pattern<br>
+    Of floating away
+  </div>
+
+  <div class="lyric" id="verse9">
+    Ooh… find something worth saving<br>
+    It's all for the taking<br>
+    I always say
+  </div>
+
+  <div class="lyric" id="verse10">
+    I'll be better on Saturn<br>
+    None of this matters<br>
+    Dreaming of Saturn
+  </div>
+
+  <div class="lyric" id="verse11">
+    If karma's really real<br>
+    How am I still here?<br>
+    Just seems so unfair
+  </div>
+
+  <div class="lyric" id="verse12">
+    If there's a point to being good<br>
+    Then where's my reward?<br>
+    The good die young and poor
+  </div>
+
+  <div class="lyric" id="verse13">
+    I gave it all I could
+  </div>
+
+</body>
+</html>
+
+<!--Sources */https://genius.com/Sza-saturn-lyrics//* 
+https://www.pexels.com/photo/beautiful-stars-in-the-sky-9102021/ 
+https://www.pinterest.com/pin/985231156775849/ 
+https://www.amazon.com/City-Sun-Chapter-II-LP/dp/B082PPZV1W/ref=asc_df_B082PPZV1W?hvdev=c&hvcampaign=626757467126&hvadgroupid=2680088751954&hvprdptid=4260609612334&hvprdgrpid=4672993505012&hvcr=4260609612334&hvadid=4260609612334&hvprdid=b082ppzv1w&psc=1&tag=ushpadpinde-20&pp=0&epik=dj0yJnU9b1JTRUZhZnVFMzNveWYtLU5FalBTdEl0b2E1a1VJWHUmcD0xJm49WXpNckpFblVDSjVxWTg5ZmpzcVhrQSZ0PUFBQUFBR2xfWWRF 
+https://www.pinterest.com/pin/972847957094662819/ 
+https://www.pinterest.com/pin/613615518013658900/
+ https://www.pinterest.com/pin/8936899258136769/ 
+ https://www.pinterest.com/pin/6333255724653743/ -->
