@@ -1,0 +1,327 @@
+<!doctype html>
+      <html>
+        <head>
+          <style>
+
+body {
+  margin: 0;
+  min-height: 100vh;
+
+  background: radial-gradient(
+    20deg,
+    #ff9898,
+    #4d79ff,
+    #ff4dd2
+  );
+
+  animation: hueRotate 10s linear infinite;
+}
+
+@keyframes hueRotate {
+  from { filter: hue-rotate(0deg); }
+  to   { filter: hue-rotate(360deg); }
+}
+
+
+            
+            #base { 
+        position: absolute;
+        top: 0px;
+        right: 0px;
+        /* width: 1200px; */
+        /* opacity: .6; */
+        /* border-radius: 15px 50px 30px 5px; */
+        z-index: -10;
+        max-width: 100%; /* Ensures the image never exceeds the width of its parent container */
+  height: auto;    /* Automatically calculates the height to maintain the aspect ratio */
+  display: block; 
+   /* border-radius: 50px 50px 50px 50px; */
+            }
+
+            #filler1{
+                position: absolute;
+                top: 400px;
+                right: 500px;
+                z-index: -9;
+                /* height: 200px; */
+                /* width: 150px; */
+                aspect-ratio: 2/4;
+                opacity: 0.4;
+            }
+            
+            #filler2{
+                position: absolute;
+                top: 800px;
+                left: 200px;
+                z-index: -9;
+                height: 200px;
+                width: 150px;
+            }
+
+    
+            
+
+            #bodypart1 {
+        position: absolute;
+        color:rgb(0, 255, 81);
+        /* background-color:#070204; */
+        text-shadow: 1px 1px 1px rgb(0, 0, 0);
+        /* border: 6px solid black; */
+        /* width: 300px; */
+        left: 300px;
+        top: 100px; 
+        font-size:50px;
+        font-family: american typewriter;
+      }
+
+      #textbodypart1{ 
+          position: absolute;
+        color:rgb(199, 199, 199);
+        /* background-color:#070204; */
+        /* text-shadow: 1px 1px 1px rgb(0, 0, 0); */
+        /* border: 6px solid black; */
+        width: 300px;
+        left: 500px;
+        top: 100px; 
+        font-size:20px;
+        font-family: american typewriter;
+
+      }
+
+         #bodypart2 {
+        position: absolute;
+        color:rgb(255, 60, 0);
+        /* background-color:#070204; */
+        text-shadow: 1px 1px 1px white;
+        /* border: 6px solid black; */
+        /* width: 300px; */
+        left: 300px;
+        top: 500px; 
+    font-size:50px;
+        font-family: american typewriter;
+    }
+
+      #textbodypart2{ 
+          position: absolute;
+        color:rgb(199, 199, 199);
+        /* background-color:#070204; */
+        /* text-shadow: 1px 1px 1px rgb(0, 0, 0); */
+        /* border: 6px solid black; */
+        width: 400px;
+        left: 300px;
+        top: 550px; 
+        font-size:20px;
+        font-family: american typewriter;
+
+      }
+
+        #bodypart3 {
+        position: absolute;
+        color:rgb(0, 26, 255);
+        /* background-color:#070204; */
+        text-shadow: 1px 1px 1px white;
+        /* border: 6px solid black; */
+        /* width: 200px; */
+        left: 1000px;
+        top: 700px;
+        font-size:50px;
+        font-family: american typewriter; }
+
+        #textbodypart3{ 
+          position: absolute;
+        color:rgb(199, 199, 199);
+        /* background-color:#070204; */
+        /* text-shadow: 1px 1px 1px rgb(0, 0, 0); */
+        /* border: 6px solid black; */
+         width: 200px;
+        left: 1000px;
+        top: 750px;
+        font-size:20px;
+        font-family: american typewriter;} 
+
+         #bodypart4 {
+        position: absolute;
+        color:rgb(255, 0, 166);
+        /* background-color:#070204; */
+        text-shadow: 1px 1px 1px white;
+        /* border: 6px solid black; */
+        /* width: 200px; */
+        left: 100px;
+        top: 2000px; 
+    font-size:50px;
+        font-family: american typewriter;
+    
+    }
+
+    #textbodypart4{ 
+          position: absolute;
+        color:rgb(199, 199, 199);
+        /* background-color:#070204; */
+        /* text-shadow: 1px 1px 1px rgb(0, 0, 0); */
+        /* border: 6px solid black; */
+       width: 400px;
+        left: 100px;
+        top: 2000px; 
+        top: 2050px;
+        font-size:20px;
+        font-family: american typewriter;} 
+
+         #bodypart5 {
+        position: absolute;
+        color:rgb(255, 1, 111);
+        /* background-color:#070204; */
+        text-shadow: 1px 1px 1px white;
+        /* border: 6px solid black; */
+        /* width: 1000px; */
+        left: 800px;
+        top: 2600px;font-size:50px;
+        font-family: american typewriter;
+     }
+
+     #textbodypart5{ 
+          position: absolute;
+        color:rgb(199, 199, 199);
+        /* background-color:#070204; */
+        /* text-shadow: 1px 1px 1px rgb(0, 0, 0); */
+        /* border: 6px solid black; */
+        width: 450px;
+        left: 800px;
+        top: 2660px;
+        font-size:20px;
+        font-family: american typewriter;} 
+
+         #bodypart6 {
+        position: absolute;
+        color:rgb(0, 183, 255);
+        /* background-color:#070204; */
+        text-shadow: 1px 1px 1px white;
+        /* border: 6px solid black; */
+        /* width: 100px; */
+        left: 200px;
+        top: 2900px; 
+         border-bottom: 100px;
+        font-size:50px;
+        font-family: american typewriter;
+    }
+
+    #textbodypart6{ 
+          position: absolute;
+        color:rgb(199, 199, 199);
+        /* background-color:#070204; */
+        /* text-shadow: 1px 1px 1px rgb(0, 0, 0); */
+        /* border: 6px solid black; */
+        width: 500px;
+        left: 200px;
+        top: 2950px; 
+        font-size:20px;
+        font-family: american typewriter;} 
+
+         #bodypart7 {
+        position: absolute;
+        color:rgb(255, 98, 0);
+        /* background-color:#070204; */
+        text-shadow: 1px 1px 1px white;
+        /* border: 6px solid black; */
+        /* width: 100px; */
+        left: 1000px;
+        top: 1800px; 
+        bottom: 100px;
+        font-size:50px;
+        font-family: american typewriter;
+    }
+        #textbodypart7{ 
+          position: absolute;
+        color:rgb(199, 199, 199);
+        /* background-color:#070204; */
+        /* text-shadow: 1px 1px 1px rgb(0, 0, 0); */
+        /* border: 6px solid black; */
+        width: 400px;
+        left: 1000px;
+        top: 1860px; 
+        font-size:20px;
+        font-family: american typewriter;} 
+
+
+          </style>
+        </head>
+        <body>
+            <div id="bodypart1"> sunrise </div>
+            <div id="textbodypart1"> Imprisonment meant years without a sunrise,
+a sunset, or a night sky, locked in a cell for sixteen hours each
+day, from early afternoon to late morning. Imprisonment meant
+that they took away the sun and the moon and the stars. Prison
+wasn't hell, but there was no heaven in it, either. In its o w n
+way, that was just as bad. </div>
+
+            <div id="bodypart2"> wagging tails</div>
+            <div id="textbodypart2">  The air, after eight dry months, was so lavishly
+perfumed with rain that we were almost drunk with excitement.
+”Paous alla! S'alla ghurree!” the children cried repeatedly,
+grasping my hands. They pointed to the clouds and dragged m e
+toward the village. The rain is coming! Let's go home!
+The first drops of rain fell as we ran. In seconds, the drops
+were a heavy fall. In minutes, the fall was a cascade. Within a n
+hour, the monsoon was a ceaseless torrent, so thick that it w a s
+difficult to breathe in the open without cupping my hands to m y
+mouth to make a little cave of air. </div>
+
+            <div id="bodypart3"> meadow </div>
+            <div id="textbodypart3"> There were grand hotels,
+with liveried doormen standing beneath coloured awnings. Near them were
+exclusive restaurants, garlanded with courtyard gardens. Sunlight
+flashed on the polished glass and brass facades of airline
+offices and other businesses. Street stalls sheltered from t h e
+morning sunlight beneath broad umbrellas. The Indian men walking
+there were dressed in hard shoes and western business suits, a n d
+the women wore expensive silk. They looked purposeful and sober,
+their expressions grave as they bustled to and from the large office buildings.</div>
+
+            <div id="bodypart4"> enchanted trees </div>
+            <div id="textbodypart4"> The universe is not random; it is organized into a, 
+                structured network of filaments and voids, 
+                often called the "cosmic web," 
+                which looks similar to the neural network of a human brain. 
+                Douglas Adams famously wrote, 
+                "In the beginning the Universe was created. 
+                This has made a lot of people very angry 
+                and been widely regarded as a bad move".</div>
+
+             <div id="bodypart5"> singing mermaids </div>
+             <div id="textbodypart5">  The belief in mermaids may have arisen 
+                at the very dawn of our species. Magical female 
+                figures first appear in cave paintings in the 
+                late Paleolithic (Stone Age) period some 30,000 
+                years ago, when modern humans  gained dominion 
+                over the land and, presumably, began to sail the 
+                seas. Half-human creatures, called chimeras, 
+                also abound in mythology — in addition to mermaids,
+                 there were wise centaurs, wild satyrs, 
+                 and frightful minotaurs, to name but a few.</div>
+            
+                 <div id="bodypart6"> rolling trolls </div>
+                 <div id="textbodypart6"> Bacchus, with vine leaves 
+                    twisted about his curling locks and a goblet of 
+                    the purple juice of the grape always in his hand, 
+                    was the god of the vineyards. King Midas made the 
+                    acquaintance of Bacchus, who was a friendly, peaceful
+                    god and fond of human companionship. And Bacchus 
+                    unexpectedly offered Midas his choice of
+                     any wish that he cherished. </div>
+
+              <div id="bodypart7"> gezellig </div>
+              <div id="textbodypart7"> Gezellig 
+                (pronounced huh-ZEL-uhk or guh-ZELL-uhk)
+                 is a cornerstone Dutch word describing a
+                  warm, cozy, and social atmosphere, 
+                  often translated as "cozy" "convivial" or
+                   "togetherness". It encompasses pleasant, 
+                   relaxed social situations, such as having a 
+                   drink with friends, a charming cafe, 
+                   or a warm, inviting home.</div>
+
+              <img id="base" src="1.JPG"> 
+              <img id="filler1" src="2.jpg">
+
+            
+        </body>
+      </html>

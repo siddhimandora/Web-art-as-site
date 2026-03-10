@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Planets</title>
+
+<style>
+  body{
+    background:#000;
+    color:rgb(253,255,125);
+    font-family:'Roboto', sans-serif;
+    margin:0;
+  }
+
+  #backlink{
+    position:absolute;
+    top:4vh;
+    left:4vw;
+    z-index:9999;
+    font-size:3vh;
+    color:rgb(253,255,125);
+    text-shadow:4px 3px 1px rgb(82,94,255);
+    text-decoration:none;
+  }
+  #backlink:hover{ filter:invert(100%); }
+
+  /* TEXT BLOCKS */
+  #text1, #text2, #text3, #text4, #text5,
+  #text6, #text7, #text8, #text9, #text10{
+    position:relative;
+    width:90vw;
+    margin:2vh 0;
+    left:4vw;
+    z-index:999;
+    transition:1s;
+    padding:4px 8px;
+  }
+
+  /* FLIPPABLE WORDS */
+  .flippers{
+    color:red;
+    text-shadow:4px 3px 1px rgb(82,94,255);
+    cursor:pointer;
+    text-decoration:underline;
+  }
+
+  /* IMAGE RULE */
+  #img1, #img2, #img3, #img4, #img5,
+  #img6, #img7, #img8, #img9, #img10, #img11{
+    position:absolute;
+    opacity:.8;
+    transition:2s;
+    z-index:1;
+    cursor:pointer;
+  }
+
+  /* hover grow */
+  #img1:hover, #img2:hover, #img3:hover, #img4:hover, #img5:hover,
+  #img6:hover, #img7:hover, #img8:hover, #img9:hover, #img10:hover, #img11:hover{
+    opacity:1;
+    filter:invert(100%);
+    transform:scale(1.35);
+  }
+
+  /* YOUR INDIVIDUAL IMAGE POSITIONS */
+  #img1{ top:8vh; left:6vw; width:14vw; opacity:.55; border-radius:0; }
+  #img2{ top:18vh; right:10vw; width:10vw; }
+  #img3{ top:34vh; left:12vw; width:12vw; }
+  #img4{ top:48vh; right:22vw; width:11vw; opacity:.7; }
+  #img5{ top:62vh; left:18vw; width:16vw; opacity:.65; border-radius:10px; }
+  #img6{ top:10vh; left:42vw; width:9vw; }
+  #img7{ top:28vh; right:34vw; width:13vw; opacity:.75; }
+  #img8{ top:44vh; left:55vw; width:10vw; }
+  #img9{ top:70vh; right:12vw; width:12vw; opacity:.6; }
+  #img10{ top:78vh; left:40vw; width:9vw; }
+  #img11{ top:85vh; right:22vw; width:10vw; opacity:.8; }
+</style>
+</head>
+
+<body>
+
+  <div id="text1">
+    Thousands of years ago, ancient civilizations turned to the heavens, marveling at their wonders.
+    These ancient people worshipped various gods and often linked their gods with planets in the sky,
+    which they considered to be “wandering stars.”
+    We have been landed with the Roman names for the majority of the planets in our solar system.
+    However, the Greeks are really the ones who deserve the credit for creating these gods
+    (and their planetary associations). The Romans more or less copied the Greek gods into their own
+    mythology but changed the names.
+  </div>
+
+  <div id="text2">
+    Mercury is the <span class="flippers" id="swap1">smallest</span> planet in our solar system and the one that is closest to the Sun.
+    It takes Mercury <span class="flippers" id="swap2">88 days</span> to complete one revolution in its orbit and it is the speediest of all planets.
+    As a comparatively bright object in the evening or morning sky, Mercury was well known to many of the ancient people.
+    The ancient Greeks associated this celestial body with the swift messenger of the gods, Hermes.
+    One of the best ways to understand Hermes is to look at the story of his birth.
+    He was walking and talking (fluently) within minutes of his birth. He travelled hundreds of miles on the first day of his life.
+    Hermes was physically and mentally quick, that's why Greeks called planet Mercury - Hermes.
+  </div>
+
+  <div id="text3">
+    As Venus is the brightest object in the sky after the Sun and the Moon, it is the most frequently seen of all the planets.
+    Aphrodite was the god of Venus. She is also associated with beauty, love, passion, pleasure and procreation.
+    Aphrodite is known as the Daughter of Heaven and Sea, the child of Uranus and Gaia. Also she is said to be a daughter of Zeus
+    or to have sprung from the foam of the sea.
+  </div>
+
+  <div id="text4">
+    The third planet from the sun, Earth is the only place in the known universe confirmed to host life.
+    Gaia, one of the oldest of the Greek gods, is the god of the Earth. Gaia is one of the grandmother of Zeus and both the mother
+    and the lover of the sky (Ouranus). You can read our previous blog topic for more information about the Goddess of Earth - Gaia.
+  </div>
+
+  <div id="text5">
+    Mars is the fourth planet from the Sun – a dusty, cold, desert world with a very thin atmosphere.
+    Mars is also a dynamic planet with seasons, polar ice caps, canyons, extinct volcanoes, and evidence that it was even more active in the past.
+    Ares is the Greek god of the planet Mars. He was the god of war. More specifically, the violent and brutal aspect of war.
+    His sister, Athena, on the other hand, was the god of skill and tactics of war.
+  </div>
+
+  <div id="text6">
+    Jupiter is the largest planet in the Solar System and the fifth planet from the Sun.
+    When observed from Earth, Jupiter can appear as the third-brightest object in the night sky, after the Moon and Venus.
+    Notable for its colourful wind-carved belts, this colossal planet is two-and-a-half times more massive than all the other planets combined,
+    justifying the inspiration for its name - Zeus, king of the gods. Zeus himself, while he was ultimately in charge of everything,
+    was the god of the sky and thunder. His wife was Hera. Zeus was respected as an allfather who was chief of the gods and assigned roles to the others.
+    Even the gods who are not his natural children address him as Father, and all the gods rise in his presence.
+  </div>
+
+  <div id="text7">
+    Uranus is the seventh planet from the Sun. It is named after Greek sky deity Uranus, who in Greek mythology is the father of Cronus (Saturn).
+    The Greeks imagined the sky as a solid dome of brass, decorated with stars, whose edges descended to rest upon the outermost limits of the flat earth.
+    Ouranos was the literal sky, just as his consort Gaia (Gaea) was the earth.
+  </div>
+
+  <div id="text8">
+    Neptune is the eighth planet from the Sun and the farthest known planet in the Solar System.
+    It is the fourth-largest planet in the Solar System by diameter.
+    The god of the seas - Poseidon, was the god of Neptune. Poseidon was a brother of Zeus.
+    Along with the sea, Poseidon was also given powers over storms, earthquakes and horses (horses were seen as part of the element of water).
+    He is usually depicted holding a three-pronged fishing trident which he can use to stir up storms or hit the ground with to create earthquakes.
+    Poseidon is a mixed character, like most of the gods (and the sea itself). He is usually mercilessly cruel to his enemies and devoutly loyal to his friends.
+  </div>
+
+  <div id="text9">
+    Pluto is the dwarf planet of our solar system. It is the largest known trans - Neptunian object by volume, by a small margin,
+    but is slightly less massive than Eris. Like other Kuiper belt objects, Pluto is made primarily of ice and rock and is much smaller than the inner planets.
+    Compared to Earth's moon, Pluto has only one sixth its mass and one third its volume.
+    Hades, the god of the underworld, was also the god of Pluto. Hades was also the god of the hidden wealth of the earth, from the fertile soil
+    with nourished the seed-grain, to the mined wealth of gold, silver and other metals.
+  </div>
+
+  <div id="text10">
+    When you’re next looking up at the stars, perhaps trying to find some of the ones on your personalized star map, don’t forget to look for the planets too.
+    Yes, the Romans may have chosen their names but it was the Greeks who first conceived of them.
+    The characters and symbols of these planetary gods have filtered down through cultures and civilisations to become a part of the lives we lead today.
+    Many of the words we use derive from these Greek gods and even our perception of the planets have been largely characterized by Greek mythology.
+    In astrology, Mars is still seen as the planet of action, energy and is the ruler of our animal instincts.
+    Don’t forget the numerous constellations (which you can see on your star map) have their roots in Greek mythology.
+    Sagittarius, for example, is a centaur who was killed by Hercules. Hercules is also supposed to have bitten the goddess Hera when he was breastfeeding
+    and the milk which spilt out became the Milky Way. Science might explain it differently nowadays but the power of these myths go on.
+  </div>
+
+  <img id="img1" src="planet1.jpg" alt="planet 1">
+  <img id="img2" src="planet2.gif" alt="planet 2">
+  <img id="img3" src="planet3.gif" alt="planet 3">
+  <img id="img4" src="planet4.jpg" alt="planet 4">
+  <img id="img5" src="planet5.jpg" alt="planet 5">
+  <img id="img6" src="planet6.gif" alt="planet 6">
+  <img id="img7" src="planet7.gif" alt="planet 7">
+  <img id="img8" src="planet8.gif" alt="planet 8">
+  <img id="img9" src="planet9.gif" alt="planet 9">
+  <img id="img10" src="planet10.gif" alt="planet 10">
+  <img id="img11" src="planet11.jpg" alt="planet 11">
+
+  <a id="backlink" href="index.html">← back</a>
+
+  <script>
+    const words = [
+      "vomiting leaf","wandering trill","good dull filler","really thick curve",
+      "winnowy gullet","random hearth","full belly","orange",
+      "loud keyboard","calculating turn","burgeoning chest","zinger"
+    ];
+
+    const colors = ["blue","green","yellow","red","black","white","pink","purple","navy","orange","turquoise"];
+    const rand = (arr) => arr[Math.floor(Math.random() * arr.length)];
+
+    function swapWords(){
+      const s1 = document.getElementById("swap1");
+      const s2 = document.getElementById("swap2");
+      if (s1) s1.textContent = rand(words);
+      if (s2) s2.textContent = rand(words);
+    }
+
+    // scroll randomizes the flippers
+    window.addEventListener("scroll", swapWords);
+
+    // click any text block = randomize + style it
+    for (let i = 1; i <= 10; i++){
+      const block = document.getElementById("text" + i);
+      if (!block) continue;
+
+      block.addEventListener("click", () => {
+        swapWords();
+        block.style.border = `dotted 10px ${rand(colors)}`;
+        block.style.background = "rgba(255,255,255,0.06)";
+      });
+    }
+
+    // click img1 toggles img11 (click-to-reveal vibe)
+    const img1 = document.getElementById("img1");
+    const img11 = document.getElementById("img11");
+    if (img1 && img11){
+      img11.style.display = "none";
+      img1.addEventListener("click", () => {
+        img11.style.display = (img11.style.display === "none") ? "block" : "none";
+      });
+    }
+
+    // hover effect like your earth hover (using img1 as the trigger)
+    const hoverEl = document.getElementById("img1");
+    if (hoverEl){
+      hoverEl.addEventListener("mouseenter", () => {
+        hoverEl.style.opacity = "0.6";
+        document.body.style.background = rand(colors);
+        document.body.style.cursor = "crosshair";
+
+        const t1 = document.getElementById("text1");
+        if (t1){
+          t1.style.color = "red";
+          t1.style.border = "red dotted 20px";
+        }
+      });
+
+      hoverEl.addEventListener("mouseleave", () => {
+        hoverEl.style.opacity = "0.8";
+        document.body.style.background = "#000";
+        document.body.style.cursor = "default";
+
+        const t1 = document.getElementById("text1");
+        if (t1){
+          t1.style.color = "rgb(253,255,125)";
+          t1.style.border = "none";
+        }
+      });
+    }
+
+    // OPTIONAL: swap img1 src on hover (uncomment + set a real file)
+    // const originalSrc = img1 ? img1.src : "";
+    // if (img1){
+    //   img1.addEventListener("mouseenter", () => img1.src = "planet2.gif");
+    //   img1.addEventListener("mouseleave", () => img1.src = originalSrc);
+    // }
+  </script>
+
+</body>
+</html>
