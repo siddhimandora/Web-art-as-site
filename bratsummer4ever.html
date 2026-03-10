@@ -1,0 +1,571 @@
+<!doctype html>
+<html>
+
+<head>
+<link rel="shortcut icon" href="fab1.jpg">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <style>
+    @font-face {
+      font-family: "ArialNarrowCustom";
+      src: url("arialnarrow.ttf");
+    }
+
+    body {
+      margin: 0;
+      overflow-x: auto;
+      overflow-y: hidden;
+    }
+
+    #lyrics-page {
+      width: 3280px;
+      min-height: 100vh;
+      background: #000000;
+      display: flex;
+      flex-direction: row;
+      box-sizing: border-box;
+    }
+
+    .lyrics-column {
+      width: 520px;
+      color: white;
+      font-family: "ArialNarrowCustom", Arial, sans-serif;
+      font-size: 33px;
+      line-height: 1.15;
+      flex-shrink: 0;
+    }
+
+    .click-btn {
+      display: block;
+      background: none;
+      border: none;
+      color: #8ace00;
+      font-family: "ArialNarrowCustom", Arial, sans-serif;
+      font-size: 20px;
+      padding: 6px 16px;
+      margin-bottom: 16px;
+      cursor: pointer;
+    }
+
+    .click-btn:hover {
+      color: white;
+    }
+
+    #brattybehavior1 {
+      position: absolute;
+      width: 232px;
+      height: 335px;
+      top: 300px;
+      left: 1245px;
+    }
+
+    #brattybehavior2 {
+      position: absolute;
+      width: 436px;
+      height: 408px;
+      top: 192px;
+      left: 2308px;
+    }
+
+    #back2brat {
+      position: absolute;
+      color: #8ace00;
+      font-family: "ArialNarrowCustom", Arial, sans-serif;
+      font-size: 20px;
+      top: 300px;
+      left: 400px;
+      z-index: 10;
+      text-align: center;
+    }
+
+    .linkstyle {
+      color: #8ace00;
+      text-decoration: none;
+      font-family: "ArialNarrowCustom", Arial, sans-serif;
+    }
+
+    #j-clones {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      pointer-events: none;
+      z-index: 999;
+    }
+
+    #j-clones img {
+      position: absolute;
+      width: 232px;
+      height: 335px;
+    }
+
+    @keyframes strobe {
+      0%   { background: white; }
+      50%  { background: black; }
+      100% { background: white; }
+    }
+
+    body.strobing,
+    body.strobing #lyrics-page {
+      animation: strobe 0.5s infinite;
+    }
+
+    @media (max-width: 600px) {
+      #lyrics-page {
+        width: 100vw;
+        flex-direction: column;
+        overflow-x: hidden;
+      }
+
+      .lyrics-column {
+        width: 90vw;
+        font-size: 5vw;
+        padding: 0 5vw;
+      }
+
+      #main-btn {
+        position: relative !important;
+        top: auto !important;
+        left: auto !important;
+        margin: 20px 0 10px 5vw;
+      }
+
+      #back2brat {
+        position: relative;
+        top: auto;
+        left: auto;
+        margin: 20px 5vw;
+      }
+
+      #brattybehavior1,
+      #brattybehavior2,
+      #j-clones {
+        display: none;
+      }
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <div id="lyrics-page">
+
+    <button class="click-btn" id="main-btn" style="position:absolute; top:200px; left:720px; z-index:10;">click me</button>
+
+    <!-- COLUMN 1 -->
+    <div class="lyrics-column">
+      <span id="col1-span">I went my own way and I made it <br>
+      I'm your favorite reference, baby <br>
+      Call me Gabbriette, you're so inspired<br>
+      Ah, ah<br>
+      I'm tectonic, moves, I make 'em<br>
+      Shock you like defibrillators<br>
+      No style? I can't relate <br>
+      I'll always be the one, ah<br>
+      Drop down, yeah<br>
+      Put the camera flash on<br>
+      So stylish<br>
+      Baby tee is all gone<br>
+      Drop down, yeah<br>
+      Lookin' like an icon<br>
+      Work angles, yeah<br>
+      Yeah, 360<br>
+      When you're in the mirror, do you like what you see?<br>
+      When you're in the mirror, you're just looking at me<br>
+      I'm everywhere, I'm so Julia<br>
+      Ah-ah, ah</span><br>
+    </div>
+
+    <!-- COLUMN 2 -->
+    <div class="lyrics-column">
+      <span id="col2-span">When you're in the party b-b-bumpin' that beat<br>
+      666 with a princess streak<br>
+      I'm everywhere, I'm so Julia<br>
+      Ah-ah, ah<br>
+      Bumpin' that<br>
+      Bumpin' that<br>
+      Bumpin' that<br>
+      That city sewer slut's the vibe<br>
+      Internationally recognized<br>
+      I set the tone, it's my design<br>
+      And it's stuck in your mind<br>
+      Legacy is undebated<br>
+      You gon' jump if A. G. made it <br>
+      If you love it, if you hate it<br>
+      I don't fucking care what you think <br>
+      Drop down, yeah <br>
+      Put the camera flash on <br>
+      So stylish <br>
+      Baby tee is all gone <br>
+      Drop down, yeah</span> <br>
+    </div>
+
+    <!-- COLUMN 3 -->
+    <div class="lyrics-column">
+      <span id="col3-span">Lookin' like an icon <br>
+      Work angles, yeah <br>
+      Yeah, 360 <br>
+      When you're in the mirror, do you like what you see? <br>
+      When you're in the mirror, you're just looking at me <br>
+      I'm everywhere, I'm so Julia <br>
+      Ah-ah, ah <br>
+      When you're in the party b-b-bumpin' that beat <br>
+      666 with a princess streak <br>
+      I'm everywhere, I'm so Julia <br>
+      Ah-ah, ah <br>
+      Bumpin' that <br>
+      Bumpin' that <br>
+      Bumpin' that <br>
+      Ah-ah, ah <br>
+      Bumpin' that <br>
+      Bumpin' that <br>
+      Bumpin' that <br>
+      Ah-ah, ah</span> <br>
+    </div>
+
+  </div>
+
+  <div id="back2brat">
+    <a class="linkstyle" href="brat.html"> need 2 be <br> more bratty </a>
+  </div>
+
+  <img id="brattybehavior1" src="j.jpg">
+  <img id="brattybehavior2" src="k.jpg">
+  <div id="j-clones"></div>
+
+</body>
+
+<script>
+
+  let lyricsCol1 = [
+    `I guess the apple don't fall far from the tree <br>
+    'Cause I've been looking at you so long <br>
+    Now I only see me <br>
+    I wanna throw the apple into the sky <br>
+    Feels like you never understand me <br>
+    So I just wanna drive <br>
+    To the airport, the airport <br>
+    The airport, the airport <br>
+    I guess the apple could turn yellow or green <br>
+    I know there's lots of different nuances <br>
+    To you and to me <br>
+    I wanna grow the apple, keep all the seeds <br>
+    But I can't help but get so angry <br>
+    You don't listen, I leave <br>
+    To the airport, the airport <br>
+    The airport, the airport <br>
+    The airport, the airport <br>
+    The airport, the airport <br>
+    I'm gonna drive, gonna drive all night <br>
+    I'm gonna drive, gonna drive all night <br>
+    I think the apple's rotten right to the core <br>
+    From all the things passed down`,
+
+    `From all the apples coming before <br>
+    I split the apple down symmetrical lines <br>
+    And what I find is kinda scary <br>
+    Makes me just wanna drive <br>
+    (Drive, drive, drive, dr-dr-dr-drive, drive, drive) <br>
+    (I'm gonna drive, gonna drive all night) <br>
+    (I'm gonna drive, gonna drive all night) <br>
+    (Drive, drive, drive, dr-dr-dr-drive, drive, drive) <br>
+    I wanna know where you go <br>
+    When you're feeling alone <br>
+    When you're feeling alone, do you <br>
+    I wanna know where you go <br>
+    When you're feeling alone <br>
+    When you're feeling alone, do you <br>
+    (Do you, do you, do you, do you) <br>
+    (Do you, do you, do you, do you) <br>
+    (Do you, do you, do you, do you) <br>
+    (Do you, do you, do you, do you) <br>
+    (Do you, do you, do you, do you) <br>
+    (Do you, do you, do you, do you) <br>
+    (Do you, do you, do you, do you) <br>
+    (Do you, do you, do you, do you)`,
+
+    `I could eat that girl for lunch <br>
+    Yeah, she dances on my tongue <br>
+    Tastes like she might be the one <br>
+    And I could never get enough <br>
+    I could buy her so much stuff <br>
+    It's a craving, not a crush, huh <br>
+    "Call me when you're there" <br>
+    Said, "I bought you somethin' rare <br>
+    And I left it under 'Claire'" <br>
+    So now, she's comin' up the stairs <br>
+    So I'm pullin' up a chair <br>
+    And I'm puttin' up my hair <br>
+    Baby, I think you were made for me <br>
+    Somebody write down the recipe <br>
+    Been tryin' hard not to overeat <br>
+    You're just so sweet <br>
+    I'll run a shower for you like you want <br>
+    Clothes on the counter for you, try 'em on <br>
+    If I'm allowed, I'll help you take 'em off <br>
+    (Huh) <br>
+    I could eat that girl for lunch <br>
+    Yeah, she dances on my tongue <br>
+    Tastes like she might be the one`,
+
+    `And I could never get enough <br>
+    I could buy her so much stuff <br>
+    It's a craving, not a crush, huh <br>
+    Oh, I just wanna get her off, oh <br>
+    Oh <br>
+    Oh, oh <br>
+    Oh <br>
+    She's takin' pictures in the mirror <br>
+    Oh my God, her skin's so clear <br>
+    Tell her, "Bring that over here" <br>
+    You need a seat? I'll volunteer <br>
+    Now she's smilin' ear to ear <br>
+    She's the headlights, I'm the deer <br>
+    I've said it all before, but I'll say it again <br>
+    I'm interested in more than just bein' your friend <br>
+    I don't wanna break it, just want it to bend <br>
+    Do you know how to bend? <br>
+    I could eat that girl for lunch <br>
+    She dances on my tongue <br>
+    I know it's just a hunch <br>
+    But she might be the one <br>
+    I could`,
+  ];
+
+  let lyricsCol2 = [
+    `It's okay to just admit that you're jealous of me <br>
+    Yeah I heard you talk about me, that's the word on the street <br>
+    You're obsessin', just confess it, put your hands up <br>
+    It's obvious, I'm your number one <br>
+    It's alright to just admit that I'm the fantasy <br>
+    You're obsessin', just confess it 'cause it's obvious <br>
+    I'm your number one, I'm your number one <br>
+    I'm your number one, yeah, I'm just livin' that life <br>
+    Von Dutch, cult classic but I still pop <br>
+    I get money, you get mad because the bank shut <br>
+    Yeah, I know your little secret, put your hands up <br>
+    It's so obvious, I'm your number one, life <br>
+    Von Dutch, cult classic in your eardrums <br>
+    Why you lyin'? You won't fuck unless he's famous <br>
+    Do that little dance, without it, you'd be nameless <br>
+    It's so obvious, I'm your number one <br>
+    I'm your number one, I'm your number one <br>
+    I'm your number one, yeah, it's so obvious <br>
+    I'm your number one, I'm your number one <br>
+    I'm your number one, yeah, it's so obvious <br>
+    It's okay to just admit that you're jealous of me <br>
+    You're obsessin', just confess it 'cause it's obvious`,
+
+    `I'm your number one, I'm your number one <br>
+    I'm your number one, I'm your number one <br>
+    I'm your number one, your number one <br>
+    Your number one, your number one, I'm just livin' that life <br>
+    Von Dutch, cult classic but I still pop (pop) <br>
+    I get money, you get mad because the bank shut (bank shut) <br>
+    Yeah, I know your little secret, put your hands up <br>
+    It's so obvious, I'm your number one, life <br>
+    Von Dutch, cult classic in your eardrums <br>
+    Why you lyin'? You won't fuck unless he famous (fuck unless he famous) <br>
+    Do that little dance, without it, you be nameless ('less) <br>
+    It's so obvious, I'm the number one <br>
+    I'm your number one, your number one <br>
+    Your number one, your number one, your number one <br>
+    Your number one, your number one, your number one <br>
+    Your number one, yeah, I'm just livin' that life <br>
+    Von Dutch, cult classic but I still pop <br>
+    (I'm your number one, your number one...) <br>
+    I get money, you get mad because the bank's shut <br>
+    Yeah, I know your little secret, put your hands up <br>
+    It's so obvious, I'm your number one <br>
+    I'm the one, your number one`,
+
+    `Tell her, "Bring that over here" <br>
+    You need a seat? I'll volunteer <br>
+    Now she's smilin' ear to ear <br>
+    She's the headlights, I'm the deer <br>
+    I've said it all before, but I'll say it again <br>
+    I'm interested in more than just bein' your friend <br>
+    I don't wanna break it, just want it to bend <br>
+    Do you know how to bend? <br>
+    I could eat that girl for lunch <br>
+    She dances on my tongue <br>
+    I know it's just a hunch <br>
+    But she might be the one <br>
+    I could <br>
+    Eat that girl for lunch <br>
+    Yeah, she <br>
+    Tastes like she might be the one <br>
+    I could <br>
+    I could <br>
+    Eat that girl for lunch <br>
+    Yeah, she <br>
+    Yeah, she <br>
+    Tastes like she might be the one`,
+
+    `Sometimes <br>
+    I just wanna rewind <br>
+    Sometimes (sometimes, sometimes) <br>
+    I just wanna rewind <br>
+    I'd go back in time to when I wasn't insecure <br>
+    To when I didn't overanalyse my face shape <br>
+    Nowadays, I only eat at the good restaurants <br>
+    But honestly, I'm always thinkin' 'bout my weight <br>
+    I used to never feel embarrassed <br>
+    Feel embarrassed when I call up the paparazzi <br>
+    Everyone else does it constantly <br>
+    I hate these doubts that keep runnin' through my mind <br>
+    Sometimes I really think it would be cool to rewind <br>
+    Sometimes <br>
+    I just wanna rewind <br>
+    Sometimes (sometimes, sometimes) <br>
+    I just wanna rewind <br>
+    Used to burn CDs full of songs I didn't know <br>
+    Used to sit in my bedroom, puttin' polish on my toes <br>
+    Recently, I've been thinkin' 'bout a way simpler time <br>
+    Sometimes I really think it would be cool to rewind`,
+  ];
+
+  let lyricsCol3 = [
+    `You wanna guess the colour of my underwear <br>
+    You wanna know what I got going on down there <br>
+    Is it pretty in pink or all see-through? <br>
+    Is it showing off my brand new lower back tattoo? <br>
+    You wanna put 'em in your mouth, pull 'em all down south <br>
+    You wanna turn this shit out, that's what I'm talking about <br>
+    Pu-pu-put 'em in your mouth, pull 'em all down south <br>
+    You wanna turn this shit out, that's what I'm talking about (yeah) <br>
+    Try it, bite it, lick it, spit it <br>
+    Pull it to the side and get all up in it <br>
+    Wear 'em, post 'em, might remix it <br>
+    Send them to The Dare, yeah, I think he's with it <br>
+    Try it, bite it, lick it, spit it <br>
+    Pull it to the side and get all up in it <br>
+    Wear 'em, post 'em, might remix it <br>
+    Send them to The Dare, yeah, I think he's with it <br>
+    You wanna guess the colour of my underwear <br>
+    You wanna know what I got going on down there <br>
+    Is it pretty in pink or all see-through? <br>
+    Is it showing off my brand new lower back tattoo? <br>
+    You wanna put 'em in your mouth, pull 'em all down south <br>
+    You wanna turn this shit out, that's what I'm talking about`,
+
+    `You wanna guess the colour of my underwear <br>
+    You wanna know what I got going on down there <br>
+    Is it pretty in pink or all see-through? <br>
+    Is it showing off my brand new lower back tattoo? <br>
+    You wanna put 'em in your mouth, pull 'em all down south <br>
+    You wanna turn this shit out, that's what I'm talking about <br>
+    You wanna try it, bite it, lick it, spit it <br>
+    Pull it to the side and get all up in it <br>
+    Wear 'em, post 'em, might remix it <br>
+    Send them to The Dare, yeah, I think he's with it <br>
+    Think he's with it <br>
+    Guess <br>
+    Yeah <br>
+    Yeah <br>
+    Guess, guess, guess, guess, guess, guess, guess, guess <br>
+    Guess, guess, guess, guess, guess, guess, guess, guess <br>
+    Guess, guess, guess, guess, guess, guess, guess, guess <br>
+    Guess, guess, guess, guess, guess, guess, guess, guess <br>
+    Guess how much money I just took from this deal <br>
+    Wanna guess the password to my Google Drive <br>
+    You wanna guess the address of the party I'm at <br>
+    You wanna guess if I'm serious about this song`,
+
+    `I used to never think about Billboard <br>
+    But now I've started thinkin' again <br>
+    Wonderin' 'bout whether I think I deserve commercial success <br>
+    It's runnin' through my mind <br>
+    Sometimes I really think it would be cool to rewind <br>
+    Sometimes <br>
+    I just wanna rewind <br>
+    Sometimes (sometimes, sometimes) <br>
+    I just wanna rewind <br>
+    Sometimes <br>
+    'Times <br>
+    Mm, mm <br>
+    Sometimes <br>
+    I just wanna rewind <br>
+    Wanna turn back time to a different time, ooh <br>
+    Sometimes <br>
+    I just wanna rewind <br>
+    I just wanna rewind <br>
+    I just wanna rewind <br>
+    Press rewind, yeah <br>
+    Yeah, press rewind, yeah <br>
+    Bring the beat back <br>
+    Press rewind, yeah <br>
+    Yeah, press rewind`,
+
+    `Girl, it's so confusing sometimes to be a girl (girl, girl, girl, girl) <br>
+    Girl, it's so confusing sometimes to be a girl (girl, girl, girl, girl) <br>
+    Girl, how do you feel being a girl? (Girl, girl, girl) <br>
+    Girl, how do you feel being a girl, girl? (Girl, girl) <br>
+    Man, I don't know, I'm just a girl (girl, girl, girl, girl) <br>
+    Yeah, I don't know if you like me <br>
+    Sometimes I think you might hate me <br>
+    Sometimes I think I might hate you <br>
+    Maybe you just wanna be me <br>
+    You always say, "Let's go out" <br>
+    So we go eat at a restaurant <br>
+    Sometimes it feels a bit awkward <br>
+    'Cause we don't have much in common <br>
+    People say we're alike <br>
+    They say we've got the same hair <br>
+    We talk about making music <br>
+    But I don't know if it's honest <br>
+    Can't tell if you wanna see me <br>
+    Falling over and failing <br>
+    And you can't tell what you're feeling <br>
+    I think I know how you feel <br>
+    Girl, it's so confusing sometimes to be a girl (girl, girl, girl, girl) <br>
+    Girl, it's so confusing sometimes to be a girl (girl, girl, girl, girl)`,
+  ];
+
+  document.getElementById("main-btn").onclick = function () {
+    document.getElementById("col1-span").innerHTML = lyricsCol1[Math.floor(Math.random() * lyricsCol1.length)];
+    document.getElementById("col2-span").innerHTML = lyricsCol2[Math.floor(Math.random() * lyricsCol2.length)];
+    document.getElementById("col3-span").innerHTML = lyricsCol3[Math.floor(Math.random() * lyricsCol3.length)];
+  };
+
+  const isComp = window.matchMedia('(min-width: 600px)');
+
+  if (isComp.matches) {
+
+  // ---- j image: multiply on hover ----
+  const jImg = document.getElementById("brattybehavior1");
+  const cloneContainer = document.getElementById("j-clones");
+  let multiplyInterval = null;
+
+  jImg.addEventListener("mouseenter", function () {
+    multiplyInterval = setInterval(function () {
+      const clone = document.createElement("img");
+      clone.src = "j.jpg";
+      clone.style.left = Math.random() * (window.innerWidth - 232) + "px";
+      clone.style.top = Math.random() * (window.innerHeight - 335) + "px";
+      cloneContainer.appendChild(clone);
+    }, 80);
+  });
+
+  jImg.addEventListener("mouseleave", function () {
+    clearInterval(multiplyInterval);
+    multiplyInterval = null;
+    cloneContainer.innerHTML = "";
+  });
+
+  // ---- k image: strobe on hover ----
+  const kImg = document.getElementById("brattybehavior2");
+
+  kImg.addEventListener("mouseenter", function () {
+    document.body.classList.add("strobing");
+  });
+
+  kImg.addEventListener("mouseleave", function () {
+    document.body.classList.remove("strobing");
+  });
+
+  } // end isComp
+
+</script>
+</html>
