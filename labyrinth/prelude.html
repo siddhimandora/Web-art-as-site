@@ -18,7 +18,7 @@
       width: 100%;
       height: 100%;
       overflow: hidden;
-      background: #000000; /* change if needed */
+      background: #000000; 
       font-family: 'Courier New', Courier, monospace;
       color: #ffffff;
     }
@@ -62,7 +62,7 @@
       50.01%, 100% { opacity: 0; }
     }
 
-    /* arrow aligned with text */
+  
     .arrow-container {
       display: flex;
       justify-content: flex-end;
@@ -71,7 +71,7 @@
 
     .arrow-link {
       text-decoration: none;
-      color: #ffffff; /* white arrow */
+      color: #ffffff; 
       font-size: 2rem;
       opacity: 0;
       transform: translateY(10px);
@@ -106,7 +106,7 @@
       <div id="typedText" class="typed-text"></div>
 
       <div class="arrow-container">
-        <!-- 🔥 CHANGE THIS LINK -->
+     
         <a href="labyrinth.html" id="arrowLink" class="arrow-link">
           →
         </a>
@@ -115,15 +115,13 @@
   </main>
 
   <script>
-    const text = `A small note before you begin—
+    const text = `This work comes from lived moments.
+Some of it may feel familiar in ways you didn’t plan for.
 
-These are last words.
-Said to bring closure,
-or at least the feeling of it.
+It is not meant to provoke harm.
+But it may not pass lightly.
 
-This is only an exercise.
-Nothing here is meant to hurt.
-If it feels heavy, I’m truly sorry.`;
+Move through it at your own pace.`;
 
     const typedText = document.getElementById("typedText");
     const arrowLink = document.getElementById("arrowLink");
