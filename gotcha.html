@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>meow meow meow</title>
+
+  <style>
+    /* if you have the font file, use this */
+    /*
+    @font-face {
+      font-family: "Korea New";
+      src: url("KoreaNew.woff2") format("woff2");
+    }
+    */
+
+    body {
+      margin: 0;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+      position: relative;
+      background: white;
+      color: black;
+      font-family: "Korea New", Arial, sans-serif;
+      transition: background 0.4s ease, color 0.4s ease;
+      perspective: 1000px;
+    }
+
+    .text {
+      position: absolute;
+      font-size: clamp(1rem, 2vw, 2rem);
+      cursor: pointer;
+      white-space: nowrap;
+      user-select: none;
+      transition:
+        left 0.5s ease,
+        top 0.5s ease,
+        color 0.5s ease,
+        transform 0.15s ease;
+      transform-style: preserve-3d;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="text" id="text1">This</div>
+  <div class="text" id="text2">is</div>
+  <div class="text" id="text3">a</div>
+  <div class="text" id="text4">system</div>
+  <div class="text" id="text5">that</div>
+  <div class="text" id="text6">moves</div>
+  <div class="text" id="text7">everything</div>
+  <div class="text" id="text8">around</div>
+  <div class="text" id="text9">each</div>
+  <div class="text" id="text10">time</div>
+  <div class="text" id="text11">you</div>
+  <div class="text" id="text12">click</div>
+  <div class="text" id="text13">again</div>
+
+  <script>
+    const texts = [];
+    for (let i = 1; i <= 13; i++) {
+      texts.push(document.getElementById("text" + i));
+    }
+
+    const layouts = [
+      {
+        bg: "white",
+        color: "black",
+        words: [
+          "This", "is", "a", "system",
+          "that", "moves", "everything", "around",
+          "each", "time", "you", "click",
+          "again"
+        ],
+        positions: [
+          { left: "7%", top: "8%", depth: 1 },
+          { left: "24%", top: "14%", depth: 3 },
+          { left: "43%", top: "9%", depth: 2 },
+          { left: "67%", top: "13%", depth: 5 },
+
+          { left: "12%", top: "31%", depth: 4 },
+          { left: "31%", top: "38%", depth: 2 },
+          { left: "51%", top: "29%", depth: 6 },
+          { left: "71%", top: "36%", depth: 3 },
+
+          { left: "9%", top: "62%", depth: 5 },
+          { left: "28%", top: "68%", depth: 1 },
+          { left: "47%", top: "61%", depth: 4 },
+          { left: "69%", top: "66%", depth: 2 },
+
+          { left: "38%", top: "84%", depth: 6 }
+        ]
+      },
+      {
+        bg: "black",
+        color: "white",
+        words: [
+          "Nothing", "stays", "still", "here",
+          "the", "screen", "keeps", "changing",
+          "same", "space", "new", "state",
+          "again"
+        ],
+        positions: [
+          { left: "10%", top: "10%", depth: 3 },
+          { left: "30%", top: "6%", depth: 6 },
+          { left: "52%", top: "14%", depth: 1 },
+          { left: "74%", top: "9%", depth: 4 },
+
+          { left: "6%", top: "33%", depth: 5 },
+          { left: "26%", top: "28%", depth: 2 },
+          { left: "48%", top: "39%", depth: 6 },
+          { left: "70%", top: "31%", depth: 3 },
+
+          { left: "13%", top: "59%", depth: 2 },
+          { left: "34%", top: "65%", depth: 5 },
+          { left: "55%", top: "57%", depth: 4 },
+          { left: "77%", top: "63%", depth: 1 },
+
+          { left: "44%", top: "86%", depth: 6 }
+        ]
+      },
+      {
+        bg: "white",
+        color: "black",
+        words: [
+          "All", "text", "shifts", "together",
+          "no", "overlap", "just", "movement",
+          "simple", "logic", "clean", "layout",
+          "loop"
+        ],
+        positions: [
+          { left: "8%", top: "16%", depth: 6 },
+          { left: "27%", top: "11%", depth: 2 },
+          { left: "46%", top: "18%", depth: 5 },
+          { left: "66%", top: "10%", depth: 3 },
+
+          { left: "14%", top: "41%", depth: 1 },
+          { left: "33%", top: "34%", depth: 4 },
+          { left: "54%", top: "43%", depth: 2 },
+          { left: "72%", top: "37%", depth: 6 },
+
+          { left: "11%", top: "69%", depth: 5 },
+          { left: "29%", top: "63%", depth: 3 },
+          { left: "50%", top: "72%", depth: 4 },
+          { left: "68%", top: "65%", depth: 1 },
+
+          { left: "40%", top: "88%", depth: 6 }
+        ]
+      }
+    ];
+
+    let current = 0;
+    let currentDepths = [];
+
+    function showLayout(index) {
+      const layout = layouts[index];
+
+      document.body.style.background = layout.bg;
+      document.body.style.color = layout.color;
+
+      currentDepths = [];
+
+      texts.forEach((text, i) => {
+        const item = layout.positions[i];
+
+        text.textContent = layout.words[i];
+        text.style.left = item.left;
+        text.style.top = item.top;
+        text.style.color = layout.color;
+        text.style.zIndex = item.depth;
+
+        currentDepths.push(item.depth);
+
+        // reset transform when layout changes
+        text.style.transform = `translate3d(0px, 0px, ${item.depth * 8}px)`;
+      });
+    }
+
+    function nextLayout() {
+      current = (current + 1) % layouts.length;
+      showLayout(current);
+    }
+
+    texts.forEach(text => {
+      text.addEventListener("click", nextLayout);
+    });
+
+    document.addEventListener("mousemove", function(event) {
+      const x = event.clientX / window.innerWidth - 0.5;
+      const y = event.clientY / window.innerHeight - 0.5;
+
+      texts.forEach((text, i) => {
+        const depth = currentDepths[i] || 1;
+
+        const moveX = x * depth * 12;
+        const moveY = y * depth * 12;
+        const moveZ = depth * 8;
+
+        text.style.transform =
+          `translate3d(${moveX}px, ${moveY}px, ${moveZ}px)`;
+      });
+    });
+
+    showLayout(current);
+  </script>
+
+</body>
+</html>
