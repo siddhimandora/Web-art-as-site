@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Prelude</title>
+
+   <link rel="shortcut icon" href="fab.jpg">
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: #000000; /* change if needed */
+      font-family: 'Courier New', Courier, monospace;
+      color: #ffffff;
+    }
+
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .screen {
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 60px;
+    }
+
+    .content {
+      width: 100%;
+      max-width: 760px;
+      line-height: 1.7;
+    }
+
+    .typed-text {
+      font-size: 1.4rem;
+      letter-spacing: 0.1em;
+      white-space: pre-wrap;
+      min-height: 220px;
+    }
+
+    .cursor {
+      display: inline-block;
+      margin-left: 4px;
+      animation: blink 0.8s infinite;
+    }
+
+    @keyframes blink {
+      0%, 50% { opacity: 1; }
+      50.01%, 100% { opacity: 0; }
+    }
+
+    /* arrow aligned with text */
+    .arrow-container {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 20px;
+    }
+
+    .arrow-link {
+      text-decoration: none;
+      color: #ffffff; /* white arrow */
+      font-size: 2rem;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    .arrow-link.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .arrow-link:hover {
+      transform: translateX(6px);
+    }
+
+    @media (max-width: 768px) {
+      .screen {
+        padding: 30px;
+      }
+
+      .typed-text {
+        font-size: 1.05rem;
+        min-height: 260px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="screen">
+    <div class="content">
+      <div id="typedText" class="typed-text"></div>
+
+      <div class="arrow-container">
+        <!-- 🔥 CHANGE THIS LINK -->
+        <a href="labyrinth.html" id="arrowLink" class="arrow-link">
+          →
+        </a>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    const text = `A small note before you begin—
+
+These are last words.
+Said to bring closure,
+or at least the feeling of it.
+
+This is only an exercise.
+Nothing here is meant to hurt.
+If it feels heavy, I’m truly sorry.`;
+
+    const typedText = document.getElementById("typedText");
+    const arrowLink = document.getElementById("arrowLink");
+
+    let index = 0;
+    const speed = 100;
+
+    function typeWriter() {
+      if (index < text.length) {
+        typedText.innerHTML =
+          text.slice(0, index + 1) + '<span class="cursor">|</span>';
+        index++;
+        setTimeout(typeWriter, speed);
+      } else {
+        typedText.innerHTML = text;
+
+        // slight pause before arrow appears
+        setTimeout(() => {
+          arrowLink.classList.add("show");
+        }, 500);
+      }
+    }
+
+    window.addEventListener("load", typeWriter);
+  </script>
+</body>
+</html>

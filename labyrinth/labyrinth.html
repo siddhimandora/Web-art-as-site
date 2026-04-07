@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>last stand</title>
+
+  <link rel="shortcut icon" href="fab.jpg">
+
+
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: white;
+      color: black;
+      font-family: 'Courier New', Courier, monospace;
+      overflow: auto;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    #scene {
+      width: 5000px;
+      height: 3000px;
+      position: relative;
+    }
+
+    .text {
+      position: absolute;
+      font-size: 2rem;
+      white-space: nowrap;
+      cursor: pointer;
+      transition:
+        left 0.75s ease,
+        top 0.75s ease,
+        color 0.3s,
+        transform 0.75s ease,
+        opacity 0.3s;
+      user-select: none;
+      max-width: 420px;
+      line-height: 1.15;
+    }
+
+    #progressWrap {
+      position: fixed;
+      top: 18px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 420px;
+      max-width: calc(100vw - 48px);
+      z-index: 9999;
+      pointer-events: none;
+      mix-blend-mode: difference;
+    }
+
+    #progressLabel {
+      font-size: 0.9rem;
+      color: white;
+      margin-bottom: 8px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    #progressTrack {
+      width: 100%;
+      height: 12px;
+      border: 1px solid white;
+      position: relative;
+      overflow: hidden;
+      background: transparent;
+    }
+
+    #progressFill {
+      width: 0%;
+      height: 100%;
+      background: white;
+      transition: width 0.45s ease;
+    }
+
+    #progressMarker {
+      position: absolute;
+      top: -5px;
+      width: 2px;
+      height: 22px;
+      background: white;
+      left: 0%;
+      transition: left 0.45s ease;
+    }
+
+    #progressHint {
+      margin-top: 6px;
+      font-size: 0.72rem;
+      color: white;
+      opacity: 0.9;
+      letter-spacing: 0.02em;
+      min-height: 1em;
+      transition: opacity 0.2s ease;
+    }
+
+    #siteBlank {
+      position: fixed;
+      inset: 0;
+      background: black;
+      z-index: 20000;
+      display: none;
+    }
+
+    #leavePopup {
+      position: fixed;
+      inset: 0;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0,0,0,0.92);
+      z-index: 21000;
+      padding: 24px;
+    }
+
+    #leaveBox {
+      width: min(560px, 92vw);
+      max-width: 92vw;
+      background: white;
+      color: black;
+      padding: 24px;
+      border: 1px solid black;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    #leaveQuestion {
+      font-size: 1.4rem;
+      line-height: 1.2;
+      margin: 0;
+      width: 100%;
+    }
+
+    #leaveInput {
+      display: block;
+      width: 100%;
+      min-height: 140px;
+      max-width: 100%;
+      resize: none;
+      border: 1px solid black;
+      padding: 12px;
+      font-family: inherit;
+      font-size: 1rem;
+      line-height: 1.3;
+      margin: 0;
+      background: white;
+      color: black;
+    }
+
+    #leaveSubmit {
+      align-self: flex-start;
+      font-family: inherit;
+      font-size: 1rem;
+      border: 1px solid black;
+      background: black;
+      color: white;
+      padding: 10px 18px;
+      cursor: pointer;
+    }
+
+    #loadingScreen {
+      position: fixed;
+      inset: 0;
+      background: white;
+      color: black;
+      z-index: 22000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 24px;
+    }
+
+    #loadingDots {
+      font-size: 2rem;
+      letter-spacing: 0.18em;
+      transform: translateX(0.09em);
+    }
+
+    .leftover {
+      position: absolute;
+      font-size: 2rem;
+      line-height: 1.15;
+      max-width: 420px;
+      white-space: normal;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 1s ease;
+      z-index: 4;
+      transform: none;
+      user-select: none;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id="progressWrap">
+    <div id="progressLabel">progress</div>
+    <div id="progressTrack">
+      <div id="progressFill"></div>
+      <div id="progressMarker"></div>
+    </div>
+    <div id="progressHint"></div>
+  </div>
+
+  <div id="scene">
+    <div class="text" id="t1"></div>
+    <div class="text" id="t2"></div>
+    <div class="text" id="t3"></div>
+    <div class="text" id="t4"></div>
+    <div class="text" id="t5"></div>
+    <div class="text" id="t6"></div>
+    <div class="text" id="t7"></div>
+    <div class="text" id="t8"></div>
+    <div class="text" id="t9"></div>
+    <div class="text" id="t10"></div>
+    <div class="text" id="t11"></div>
+    <div class="text" id="t12"></div>
+    <div class="text" id="t13"></div>
+  </div>
+
+  <div id="siteBlank"></div>
+
+  <div id="leavePopup">
+    <div id="leaveBox">
+      <div id="leaveQuestion">What do you want to leave behind?</div>
+      <textarea id="leaveInput" placeholder="type. type. type."></textarea>
+      <button id="leaveSubmit">Leave it here</button>
+    </div>
+  </div>
+
+  <div id="loadingScreen">
+    <div id="loadingDots">...</div>
+  </div>
+
+  <script>
+    let state = 0;
+    let hasScattered = false;
+    let progressValue = 0;
+    let lastPlaceIndex = -1;
+
+    const progressFill = document.getElementById("progressFill");
+    const progressMarker = document.getElementById("progressMarker");
+    const progressHint = document.getElementById("progressHint");
+
+    const siteBlank = document.getElementById("siteBlank");
+    const leavePopup = document.getElementById("leavePopup");
+    const leaveInput = document.getElementById("leaveInput");
+    const leaveSubmit = document.getElementById("leaveSubmit");
+    const loadingScreen = document.getElementById("loadingScreen");
+    const loadingDots = document.getElementById("loadingDots");
+    const scene = document.getElementById("scene");
+    const progressWrap = document.getElementById("progressWrap");
+
+    const INTERRUPTION_TIME = 120000;
+    const RELOAD_TIME = 5000;
+
+    let interruptionTimer = null;
+    let loadingDotTimer = null;
+    let isInterrupted = false;
+    let currentLeftoverEl = null;
+
+    const movingHints = [
+      "still somewhere in the middle",
+      "movement is not the same as arrival",
+      "you advanced a little, allegedly",
+      "progress has been revised",
+      "detour accepted",
+      "closer, but not really",
+      "the route keeps changing shape",
+      "you are being redirected again",
+      "this is not a finish line",
+      "distance has become unstable",
+      "you moved, the end did not",
+      "forward is under negotiation",
+      "go ahead",
+      "the map remains unconvinced"
+    ];
+
+    let allText = [
+      "“I would Never <br> wanna see you struggle”",
+      "“I know. <br> Maybe go on a trip, hangout”",
+      "You are stunning",
+      "I love how <br> you enable me",
+      "Good morning beautiful girl. <br> I hope you're having a <br> great morning so far gorgeous",
+      "hey babe,<br> hows it going?",
+      "Type shit",
+      "This is not random",
+      "“I want to go on <br> a trek with you.”",
+      "We should be at <br> Brooklyn Inn vibing rn",
+      "'I hope to have conversations <br> with you that will leave <br> embers from which other <br> conversations may arise'",
+      "I'm scared. <br> I didn't expect to <br> meet someone like you",
+      "the lion the witch and the <br> audacity of this bitch",
+      "Gosh can we be cuddle buddies",
+      "Because I want to share my <br> inner kid with you",
+      "*on date 5* <br> 'I wrote about you in my journal. <br> Can I send you some excerpts?'",
+      "We can do whatever tonight. <br> I could read you some poetry <br> and we could look at stars... <br> very harmless",
+      "why is it so <br> difficult for you to <br> believe that i can cook",
+      "why did it take you <br> 7 hours to respond <br> didn't wanna talk to tuff",
+      "Why is that time is <br> like not valued at all man.",
+      "I can imagine spending <br> every single day with you.",
+      "I might combust any moment now...",
+      "Well it works for now i guess...",
+      "You're going to make some <br> lucky guy really happy one day.",
+      "'When I think of you <br> my mind  senses you as someone <br> who is hurtful, uncaring, <br> unkind, inconsiderate , <br> and creates in me the <br> feeling of wanting to stay away'",
+      "this is becoming fucking hectic, <br> can we break for 5 mins, <br> get some vodka and then <br> shout at each other again.",
+      "wow you are smarter than I thought",
+      "In another life",
+      "I AM LOCKED INSIDE <br> WTF",
+      "I'm sorry that <br> you feel this way",
+      "i don’t regret cheating on you",
+      "I sometimes feel like the golden goose <br> Like i know i can make golden eggs… <br> just dont know when and how…",
+      "If you proposed to me  <br> now I'd reject you",
+      "I dont know if you are<br> outside my house or not",
+      "No worries.",
+      "Why did you run away- <br> -interesting choice of words- <br> Yeah you're high . <br> And you are not <br> How dare you. <br> I've just had like 5 doubles.",
+      "I will be in 10.",
+      "We had sex because I could tell <br> you really wanted it",
+      "*stays over, <br> fixes my furniture <br> after travelling to the <br> other side of the country, <br> calls me drunk countless times, <br> asks me if I am seeing anyone*<br> “I only ever saw you <br> as a friend.”",
+      "You need to tone down <br> the abandonment issues",
+      "you are made for threesomes",
+      "You’re weak. Which is why <br> you get anxious so often. <br> Be strong.",
+      "I'm worried <br> I might cheat on you",
+      "ok why ru yelling",
+      "K.",
+      "'I'm just being honest'",
+      "...Is a fucking vampire...",
+      "'i don't love you like <br> I did in the beginning'",
+      "I'm not really <br> into making out",
+      "Did you just doze off on me?",
+      "I don’t like cats or dogs.",
+      "Oh I want her body and <br> your brain...",
+      "i really need my  <br> friend right now <br> “Call not answered”",
+      "So it wasn’t even a mistake, <br> you actually chose to fuck us up",
+      "Don’t say anything if <br> you don’t have something nice to say",
+      "you think THIS man is out <br> of your league,<br> I can’t...",
+      "bruh u really have been an unpaid <br> therapist for all these unregulated jackasses…",
+      "alright, 'time like that <br> anymore' in my <br> understanding can only mean<br> that you don't <br> have space for this <br> relationshittt. got it. <br> thank you for letting me<br> know (no sass intended)",
+      "I didn’t miss you as much as I thought I would.",
+      "My name is Mrs. Optimistic,<br> don't worry. I'm fine.",
+      "Okay! thank you <br> all the best with life,<br> i am gonna go",
+      "Only if u are not <br> already fucked up",
+      "When will u get 8 hours <br> of good sleep, <br> I feel like its my responsibility.",
+      "I am glad you are self aware",
+      "I hope your hairline recedes",
+      "I don't know if I <br> see us living together.",
+      "‘I want to be free’ then went straight <br> on to a relationship with another girl",
+      "'you're not family to me'",
+      "This has to be some <br> grade A gaslighting <br> that i just witnessed.",
+      "talking to you is the <br> worst part of my day",
+      "You're just mad because <br> she's younger and prettier than you.",
+      "honey I simply laugh with them, <br> you are who I live with",
+      "I've never loved you, I only dated you out of compassion.",
+      "I'm a high value individual...",
+      "protecting your energy queen",
+      "*knocking some sense into you*",
+      "Honestly, you need one <br> headache where you have just <br> shredded all your self <br> respect for a monkey/human.",
+      "please dont acknowledge this",
+      "*After establishing no contact* <br>Can I send you memes",
+      "this has to be a by-product <br> of a scarcity mindset",
+      "How hot and cold can your shit be",
+      "Whatever the fuck happened to <br> never seeing him again",
+      "how can he break up at 10am <br> on a Monday morning, <br> fuck these remote workers.",
+      "Changing your name to <br> Projector in my contacts, <br> cause all you do is project<br> your crap on me.",
+      "honestly, so many people have <br> come and left from my life,<br> like I dont even know if you leaving<br> is gonna matter anymore.",
+      "‘find a cute boi’ <br> What a prick, that selfish <br> doormat of a man.",
+      "Will call you when you are done <br> sobbing like a lil child who hears the word ‘no’ <br> for the first time.",
+      "are you PMSing.",
+      "I don’t like drama- <br> proceeds to road rage for 20 mins <br> after a bike cut him off...",
+      "You're not hot anyway",
+      "So, how many dates have you been on here?",
+      "See them angry see them in the <br> seasons you like.<br> Like imagine you find a person in <br> winters and get married in the summer. <br> And then you find out that this <br> bitch hates monsoons. <br> Like wtf you gonna do then?? <br> That's stressful already <br> to think about.",
+      "I love the encouragement you give",
+      "I just don't think <br> we have the same goals. <br> I need someone <br> to keep me in line, not enable me",
+      "Call me and tell me <br> Texting is too easy",
+      "I feel so seen by you",
+      "Way you talk about him. <br> I'm starting to miss him too",
+      "Is it another <br> ultra busy day for you?",
+      "Hella proud of you!",
+      "Sorry.<br>  That was a vent.",
+      "Hey, chill, <br> nothing has happened,<br> I just don't have time <br> like that anymore",
+      "CAPS LOCKS IS ON",
+      "Be Silent",
+      "It’s enough to traumatise me",
+      "either u are drunk <br> or fully sober",
+      "I just need one last kiss <br> for closure, <br> I have forgotten how it felt <br> all the other times.",
+      "you really know how <br> to string a <br> guy along, don’t worry <br> I am here for the journey",
+      "Andrew T*** is my model.",
+      "these fuckers with their flowers",
+      "Am I a stranger?",
+      "L is for Love,<br> Loss,<br> Loser,<br> Lonely,<br> Lamb,<br> Lies,<br> Lord,<br> Lunch,<br> Listening,<br> Loyalty,<br> Loneliness, Labor,<br> Lazy.",
+      "walk em like a dog",
+      "what am I doing here? <br> why am I here? <br> who am I here with? <br> what is the point of this?",
+      "I am to tell you my feelings <br>like it's some kind of an elevator pitch?<br> What is this, a fucking start up?",
+      "I'm not with him anymore,<br> but I found out he had been <br> cheating on me when we were together.<br> I only found out post break-up,<br> so I have to put the pieces together myself,<br> as we're no contact now. <br> Again, sorry if this comes <br> off as weird or intrusive!",
+      "ps. You're absolutely gorgeous, <br> have a wonderful week",
+      "Hi girl, <br> idk if you see if all your DMs, <br> and this is kind of weird <br> but I needed closure",
+      "I wish you din't exist",
+      "I wish I never met you. <br> It was the worst mistake of my life.",
+      "this episode hurt max",
+      "you were my everything",
+      "Every drunk me <br> gets worse.",
+      "I should really shut up",
+      "I choose to have you <br> in my life.<br> remember that.",
+      "is he bipolar or something?",
+      "Standard deviation to sugar daddy. <br> Range",
+      "You need a drama free month now babe",
+      "I just want to be friends",
+      "CAN YOU LET ME OUT  <br> OF THE ROOM",
+      "LET ME GO!!!!",
+      "i think i was <br> doing it for the plot",
+      "trying to make this better <br> trying to understand you <br> trying to be more patient <br> trying to hold it altogether",
+      "us, happy?",
+      "got played?",
+      "this is so aggressive",
+      "Let's downplay this situation <br>a little bit more?",
+      "Does it even bother you that I am this mind fucked?",
+      "yeah, we wont feel like <br> doing anything until we don't <br>complicate this beyond our understanding.",
+      "babe, its called Stockholm Syndrome,<br> look it up.",
+      "I din't mean to blindside you, it just happened.",
+      "Why are you overthinking this?",
+      "We are just busy,<br> nothing is up,<br> come back from the vacation, <br> i will see you soon.",
+      "you are the third planet from my Sun in my solar system",
+      "you are dissapperaing <br> mid mind fuckery, <br> that's just insensitive!",
+      "it's my nap time",
+      "*in horrible/adorable german accent*<br>i thought I would call you when my mouth is numbed out, <br> because I know you are having a crappy day<br> and i know this will make you laugh. ",
+      "i love you at times",
+    ];
+
+    const positions1 = [
+      ["180px", "180px"], ["1250px", "220px"], ["2400px", "180px"], ["3650px", "260px"],
+      ["260px", "880px"], ["1380px", "980px"], ["2630px", "900px"], ["3920px", "980px"],
+      ["180px", "1750px"], ["1420px", "1880px"], ["2750px", "1780px"], ["4020px", "1910px"],
+      ["2280px", "2550px"]
+    ];
+
+    const positions2 = [
+      ["320px", "260px"], ["1500px", "180px"], ["2860px", "280px"], ["4100px", "220px"],
+      ["220px", "980px"], ["1320px", "1160px"], ["2550px", "1020px"], ["3840px", "1180px"],
+      ["360px", "1860px"], ["1580px", "2050px"], ["2860px", "1900px"], ["4200px", "2060px"],
+      ["2350px", "2660px"]
+    ];
+
+    const positions3 = [
+      ["220px", "320px"], ["1380px", "340px"], ["2600px", "250px"], ["3880px", "360px"],
+      ["420px", "1120px"], ["1600px", "960px"], ["2790px", "1180px"], ["4050px", "1040px"],
+      ["240px", "2040px"], ["1320px", "2200px"], ["2560px", "2020px"], ["3940px", "2200px"],
+      ["2170px", "2780px"]
+    ];
+
+    let bigChangeIds = ["t1", "t4", "t7", "t10", "t13", "t2", "t3", "t5", "t6"];
+    let smallChangeIds = ["t8", "t9", "t11", "t12"];
+
+    function getRandomSet() {
+      let shuffled = [...allText].sort(() => 0.5 - Math.random());
+      return shuffled.slice(0, 13);
+    }
+
+    function getRandomLine() {
+      return allText[Math.floor(Math.random() * allText.length)];
+    }
+
+    function getRandomColor() {
+      let reds = [
+        "#3b0000", "#5c0000", "#7a0000", "#990000", "#b30000",
+        "#cc1f1f", "#d94a4a", "#e06666", "#f08080", "#f5b5b5"
+      ];
+      return reds[Math.floor(Math.random() * reds.length)];
+    }
+
+    function getTextColor(bg) {
+      bg = bg.replace("#", "");
+      let r = parseInt(bg.substring(0, 2), 16);
+      let g = parseInt(bg.substring(2, 4), 16);
+      let b = parseInt(bg.substring(4, 6), 16);
+      let brightness = (r * 299 + g * 587 + b * 114) / 1000;
+      return brightness < 140 ? "white" : "black";
+    }
+
+    function applyTextColor(color) {
+      for (let i = 1; i <= 13; i++) {
+        document.getElementById("t" + i).style.color = color;
+      }
+      if (currentLeftoverEl) {
+        currentLeftoverEl.style.color = color;
+      }
+    }
+
+    function setRandomHint() {
+      progressHint.style.opacity = "0";
+      setTimeout(() => {
+        const randomHint = movingHints[Math.floor(Math.random() * movingHints.length)];
+        progressHint.textContent = randomHint;
+        progressHint.style.opacity = "1";
+      }, 120);
+    }
+
+    function updateFakeProgress() {
+      const direction = Math.random() > 0.5 ? 1 : -1;
+      const amount = Math.random() * 10 + 4;
+
+      progressValue += direction * amount;
+
+      if (progressValue < 18) progressValue = 18 + Math.random() * 8;
+      if (progressValue > 78) progressValue = 72 + Math.random() * 4;
+
+      progressFill.style.width = progressValue + "%";
+      progressMarker.style.left = progressValue + "%";
+      setRandomHint();
+    }
+
+    function resetProgressToEmpty() {
+      progressValue = 0;
+      progressFill.style.width = "0%";
+      progressMarker.style.left = "0%";
+      progressHint.textContent = "";
+    }
+
+    function scrollToClusterInstantly() {
+      const centerX = window.innerWidth / 2;
+      const centerY = window.innerHeight / 2;
+
+      const targetLeft = Math.max(0, centerX - window.innerWidth / 2);
+      const targetTop = Math.max(0, centerY - window.innerHeight / 2);
+
+      window.scrollTo({
+        left: targetLeft,
+        top: targetTop,
+        behavior: "auto"
+      });
+    }
+
+    function goSomewhere() {
+      let places = [
+        [200, 150],
+        [1200, 250],
+        [2400, 200],
+        [3600, 250],
+        [4300, 350],
+        [250, 1100],
+        [1500, 1100],
+        [2800, 1200],
+        [4000, 1200],
+        [250, 2000],
+        [1500, 2050],
+        [2900, 2000],
+        [4000, 2100]
+      ];
+
+      let newIndex = Math.floor(Math.random() * places.length);
+
+      while (places.length > 1 && newIndex === lastPlaceIndex) {
+        newIndex = Math.floor(Math.random() * places.length);
+      }
+
+      const spot = places[newIndex];
+      const movedSomewhereNew = newIndex !== lastPlaceIndex;
+      lastPlaceIndex = newIndex;
+
+      window.scrollTo({
+        left: spot[0],
+        top: spot[1],
+        behavior: "smooth"
+      });
+
+      if (movedSomewhereNew) {
+        updateFakeProgress();
+      }
+    }
+
+    function buildCenteredCluster() {
+      let selected = getRandomSet();
+
+      const viewportCenterX = window.innerWidth / 2;
+      const viewportCenterY = window.innerHeight / 2;
+
+      const sceneCenterX = viewportCenterX;
+      const sceneCenterY = viewportCenterY;
+
+      const clusterPositions = [
+        [-135, -115],
+        [-90, -95],
+        [-45, -105],
+        [0, -98],
+        [42, -110],
+
+        [-125, -45],
+        [-70, -30],
+        [-8, -38],
+        [52, -28],
+
+        [-112, 30],
+        [-42, 20],
+        [18, 30],
+        [-18, 88]
+      ];
+
+      for (let i = 1; i <= 13; i++) {
+        let el = document.getElementById("t" + i);
+        el.innerHTML = selected[i - 1];
+        el.style.left = (sceneCenterX + clusterPositions[i - 1][0]) + "px";
+        el.style.top = (sceneCenterY + clusterPositions[i - 1][1]) + "px";
+        el.style.color = document.body.style.color;
+        el.style.transform = "translate(-50%, -50%) rotate(0deg)";
+        el.style.zIndex = String(100 + i);
+        el.style.opacity = "1";
+      }
+
+      scrollToClusterInstantly();
+    }
+
+    function showSet(positions) {
+      let selected = getRandomSet();
+
+      for (let i = 1; i <= 13; i++) {
+        let el = document.getElementById("t" + i);
+        el.innerHTML = selected[i - 1];
+        el.style.left = positions[i - 1][0];
+        el.style.top = positions[i - 1][1];
+        el.style.color = document.body.style.color;
+        el.style.transform = "translate(0, 0) rotate(0deg)";
+        el.style.opacity = "1";
+        el.style.zIndex = "1";
+      }
+    }
+
+    function clearCurrentLeftover() {
+      if (currentLeftoverEl) {
+        currentLeftoverEl.remove();
+        currentLeftoverEl = null;
+      }
+    }
+
+    function leaveBehindText(text) {
+      clearCurrentLeftover();
+
+      if (!text.trim()) return;
+
+      const leftover = document.createElement("div");
+      leftover.className = "leftover";
+      leftover.innerHTML = text.replace(/\n/g, "<br>");
+      leftover.style.left = "2280px";
+      leftover.style.top = "1380px";
+      leftover.style.color = document.body.style.color;
+      leftover.style.transform = "translate(0, 0) rotate(0deg)";
+
+      scene.appendChild(leftover);
+      currentLeftoverEl = leftover;
+
+      requestAnimationFrame(() => {
+        leftover.style.opacity = "1";
+      });
+    }
+
+    function scatterFromCenterFirstTime() {
+      if (hasScattered) return;
+      hasScattered = true;
+
+      showSet(positions1);
+      state = 1;
+      goSomewhere();
+    }
+
+    function changeScene() {
+      if (isInterrupted) return;
+
+      if (!hasScattered) {
+        scatterFromCenterFirstTime();
+        return;
+      }
+
+      if (state == 0) {
+        document.body.style.background = "white";
+        document.body.style.color = "black";
+        showSet(positions1);
+        state = 1;
+      } else if (state == 1) {
+        document.body.style.background = "black";
+        document.body.style.color = "white";
+        showSet(positions2);
+        state = 2;
+      } else {
+        document.body.style.background = "white";
+        document.body.style.color = "black";
+        showSet(positions3);
+        state = 0;
+      }
+
+      applyTextColor(document.body.style.color);
+      goSomewhere();
+    }
+
+    function smallChange(id) {
+      if (isInterrupted) return;
+
+      if (!hasScattered) {
+        scatterFromCenterFirstTime();
+        return;
+      }
+
+      let bg = getRandomColor();
+      let textColor = getTextColor(bg);
+
+      document.body.style.background = bg;
+      document.body.style.color = textColor;
+      applyTextColor(textColor);
+
+      document.getElementById(id).innerHTML = getRandomLine();
+    }
+
+    function startInterruptionTimer() {
+      clearTimeout(interruptionTimer);
+      interruptionTimer = setTimeout(triggerInterruption, INTERRUPTION_TIME);
+    }
+
+    function triggerInterruption() {
+      isInterrupted = true;
+
+      siteBlank.style.display = "block";
+      leavePopup.style.display = "flex";
+      loadingScreen.style.display = "none";
+      leaveInput.value = "";
+
+      scene.style.visibility = "hidden";
+      progressWrap.style.visibility = "hidden";
+      document.body.style.overflow = "hidden";
+
+      leaveInput.focus();
+    }
+
+    function startLoadingAnimation() {
+      let frames = [".", "..", "..."];
+      let index = 0;
+
+      loadingDots.textContent = frames[index];
+
+      clearInterval(loadingDotTimer);
+      loadingDotTimer = setInterval(() => {
+        index = (index + 1) % frames.length;
+        loadingDots.textContent = frames[index];
+      }, 400);
+    }
+
+    function stopLoadingAnimation() {
+      clearInterval(loadingDotTimer);
+      loadingDotTimer = null;
+      loadingDots.textContent = "...";
+    }
+
+    function resumeSiteWithLeftover(userText) {
+      leaveBehindText(userText);
+
+      scene.style.visibility = "visible";
+      progressWrap.style.visibility = "visible";
+      siteBlank.style.display = "none";
+      loadingScreen.style.display = "none";
+      document.body.style.overflow = "auto";
+
+      isInterrupted = false;
+      startInterruptionTimer();
+    }
+
+    leaveSubmit.addEventListener("click", function() {
+      const userText = leaveInput.value.trim();
+
+      leavePopup.style.display = "none";
+      loadingScreen.style.display = "flex";
+      startLoadingAnimation();
+
+      setTimeout(() => {
+        stopLoadingAnimation();
+
+        if (!hasScattered) {
+          buildCenteredCluster();
+          resetProgressToEmpty();
+        } else {
+          if (state === 0) {
+            document.body.style.background = "white";
+            document.body.style.color = "black";
+            showSet(positions1);
+            state = 1;
+          } else if (state === 1) {
+            document.body.style.background = "black";
+            document.body.style.color = "white";
+            showSet(positions2);
+            state = 2;
+          } else {
+            document.body.style.background = "white";
+            document.body.style.color = "black";
+            showSet(positions3);
+            state = 0;
+          }
+          applyTextColor(document.body.style.color);
+        }
+
+        resumeSiteWithLeftover(userText);
+      }, RELOAD_TIME);
+    });
+
+    for (let i = 0; i < bigChangeIds.length; i++) {
+      document.getElementById(bigChangeIds[i]).onclick = changeScene;
+    }
+
+    for (let i = 0; i < smallChangeIds.length; i++) {
+      let id = smallChangeIds[i];
+      document.getElementById(id).onclick = function() {
+        smallChange(id);
+      };
+    }
+
+    document.body.style.background = "white";
+    document.body.style.color = "black";
+    buildCenteredCluster();
+    resetProgressToEmpty();
+    startInterruptionTimer();
+
+    window.addEventListener("resize", function() {
+      if (!hasScattered && !isInterrupted) {
+        buildCenteredCluster();
+        resetProgressToEmpty();
+      }
+    });
+  </script>
+</body>
+</html>
