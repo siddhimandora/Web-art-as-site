@@ -1,0 +1,349 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gaussian Splat Interactive Space</title>
+  <style>
+    html, body {
+      margin: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      font-family: Arial, Helvetica, sans-serif;
+      background: #000;
+    }
+
+    #app {
+      width: 100vw;
+      height: 100vh;
+      position: relative;
+    }
+
+    canvas {
+      display: block;
+    }
+
+    .hud {
+      position: fixed;
+      top: 16px;
+      left: 16px;
+      z-index: 20;
+    }
+
+    .hud-box {
+      background: rgba(0, 0, 0, 0.55);
+      color: white;
+      padding: 10px 14px;
+      border-radius: 12px;
+      font-size: 14px;
+      backdrop-filter: blur(8px);
+    }
+
+    .overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 30;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0, 0, 0, 0.45);
+    }
+
+    .overlay.hidden {
+      display: none;
+    }
+
+    .panel {
+      width: min(460px, calc(100vw - 32px));
+      background: rgba(18, 18, 18, 0.92);
+      color: white;
+      border-radius: 18px;
+      padding: 24px;
+      box-sizing: border-box;
+      position: relative;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+    }
+
+    .panel h2 {
+      margin-top: 0;
+      margin-bottom: 12px;
+      font-size: 22px;
+    }
+
+    .panel p {
+      margin: 0;
+      line-height: 1.5;
+      font-size: 15px;
+      color: rgba(255, 255, 255, 0.88);
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      border: 0;
+      background: transparent;
+      color: white;
+      font-size: 20px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div id="app"></div>
+
+  <div id="overlay" class="overlay hidden">
+    <div class="panel">
+      <button id="closePanel" class="close-btn">✕</button>
+      <h2 id="panelTitle">Marker Title</h2>
+      <p id="panelText">Marker text goes here.</p>
+    </div>
+  </div>
+
+  <div class="hud">
+    <div class="hud-box">Click markers in the 3D scene</div>
+  </div>
+
+  <script type="module">
+    import * as THREE from 'three';
+    import * as GaussianSplats3D from '@mkkellogg/gaussian-splats-3d';
+
+    const app = document.getElementById('app');
+    const overlay = document.getElementById('overlay');
+    const panelTitle = document.getElementById('panelTitle');
+    const panelText = document.getElementById('panelText');
+    const closePanel = document.getElementById('closePanel');
+
+    const raycaster = new THREE.Raycaster();
+    const mouse = new THREE.Vector2();
+    const interactiveMarkers = [];
+
+    let listener;
+    let audioLoader;
+
+    // -----------------------------
+    // THREE SCENE FOR CUSTOM OBJECTS
+    // -----------------------------
+    const threeScene = new THREE.Scene();
+
+    // -----------------------------
+    // VIEWER
+    // -----------------------------
+    const viewer = new GaussianSplats3D.Viewer({
+      rootElement: app,
+      threeScene: threeScene,
+      initialCameraPosition: [0, 1.5, 4],
+      initialCameraLookAt: [0, 1.2, 0],
+    });
+
+    // -----------------------------
+    // LIGHTING FOR MARKERS
+    // -----------------------------
+    const ambient = new THREE.AmbientLight(0xffffff, 1.2);
+    threeScene.add(ambient);
+
+    // -----------------------------
+    // INIT
+    // -----------------------------
+    async function init() {
+      try {
+        await viewer.addSplatScene('/splats/scene.ply', {
+          showLoadingUI: true,
+        });
+
+        setupAudio();
+        createMarkers();
+        setupEvents();
+
+        viewer.start();
+        animateMarkers();
+      } catch (err) {
+        console.error('Failed to load splat scene:', err);
+      }
+    }
+
+    // -----------------------------
+    // AUDIO
+    // -----------------------------
+    function setupAudio() {
+      listener = new THREE.AudioListener();
+      viewer.camera.add(listener);
+      audioLoader = new THREE.AudioLoader();
+    }
+
+    // -----------------------------
+    // PANEL FUNCTIONS
+    // -----------------------------
+    function openPanel(title, text) {
+      panelTitle.textContent = title || 'Marker';
+      panelText.textContent = text || '';
+      overlay.classList.remove('hidden');
+    }
+
+    function closeCurrentPanel() {
+      overlay.classList.add('hidden');
+    }
+
+    closePanel.addEventListener('click', closeCurrentPanel);
+    overlay.addEventListener('click', (e) => {
+      if (e.target === overlay) closeCurrentPanel();
+    });
+
+    // -----------------------------
+    // MARKER CREATOR
+    // -----------------------------
+    function createMarker({
+      id,
+      position,
+      color = 0xff66aa,
+      title,
+      text,
+      audioUrl = null,
+      radius = 0.09,
+    }) {
+      const geometry = new THREE.SphereGeometry(radius, 24, 24);
+      const material = new THREE.MeshBasicMaterial({
+        color,
+        transparent: true,
+        opacity: 0.95,
+      });
+
+      const marker = new THREE.Mesh(geometry, material);
+      marker.position.set(position[0], position[1], position[2]);
+
+      marker.userData = {
+        id,
+        title,
+        text,
+        audioUrl,
+        sound: null,
+      };
+
+      // glow ring
+      const ringGeo = new THREE.RingGeometry(radius * 1.5, radius * 2.2, 32);
+      const ringMat = new THREE.MeshBasicMaterial({
+        color,
+        transparent: true,
+        opacity: 0.35,
+        side: THREE.DoubleSide,
+      });
+
+      const ring = new THREE.Mesh(ringGeo, ringMat);
+      ring.rotation.x = -Math.PI / 2;
+      ring.position.y = -0.12;
+      marker.add(ring);
+
+      // optional sound
+      if (audioUrl && listener && audioLoader) {
+        const sound = new THREE.PositionalAudio(listener);
+
+        audioLoader.load(audioUrl, (buffer) => {
+          sound.setBuffer(buffer);
+          sound.setRefDistance(1.5);
+          sound.setRolloffFactor(1.4);
+          sound.setLoop(false);
+          sound.setVolume(1.0);
+        });
+
+        marker.add(sound);
+        marker.userData.sound = sound;
+      }
+
+      threeScene.add(marker);
+      interactiveMarkers.push(marker);
+    }
+
+    // -----------------------------
+    // DEFINE YOUR MARKERS HERE
+    // -----------------------------
+    function createMarkers() {
+      createMarker({
+        id: 'text-marker-1',
+        position: [0.4, 1.2, 0.2],
+        color: 0xff4f81,
+        title: 'Entrance Note',
+        text: 'This is where your text can appear. Replace this with your own writing.',
+      });
+
+      createMarker({
+        id: 'sound-marker-1',
+        position: [-0.6, 1.1, -0.4],
+        color: 0x66ccff,
+        title: 'Sound Marker',
+        text: 'This marker plays sound when clicked.',
+        audioUrl: '/audio/marker1.mp3',
+      });
+
+      createMarker({
+        id: 'text-sound-marker-2',
+        position: [1.1, 1.35, -0.8],
+        color: 0xa8ff60,
+        title: 'Text + Sound',
+        text: 'This one can show text and also trigger audio.',
+        audioUrl: '/audio/marker2.mp3',
+      });
+    }
+
+    // -----------------------------
+    // CLICK INTERACTION
+    // -----------------------------
+    function onPointerDown(event) {
+      const rect = app.getBoundingClientRect();
+
+      mouse.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
+      mouse.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
+
+      raycaster.setFromCamera(mouse, viewer.camera);
+
+      const hits = raycaster.intersectObjects(interactiveMarkers, true);
+      if (!hits.length) return;
+
+      let clicked = hits[0].object;
+
+      while (clicked && !interactiveMarkers.includes(clicked) && clicked.parent) {
+        clicked = clicked.parent;
+      }
+
+      if (!clicked) return;
+
+      const { title, text, sound } = clicked.userData;
+
+      if (title || text) {
+        openPanel(title, text);
+      }
+
+      if (sound && sound.buffer) {
+        if (sound.isPlaying) sound.stop();
+        sound.play();
+      }
+    }
+
+    // -----------------------------
+    // ANIMATE MARKERS
+    // -----------------------------
+    function animateMarkers() {
+      const t = performance.now() * 0.001;
+
+      for (const marker of interactiveMarkers) {
+        marker.position.y += Math.sin(t * 2 + marker.position.x * 3) * 0.0008;
+        marker.rotation.y += 0.01;
+      }
+
+      requestAnimationFrame(animateMarkers);
+    }
+
+    // -----------------------------
+    // EVENTS
+    // -----------------------------
+    function setupEvents() {
+      window.addEventListener('pointerdown', onPointerDown);
+    }
+
+    // -----------------------------
+    // START
+    // -----------------------------
+    init();
+  </script>
+</body>
+</html>
