@@ -1,21 +1,23 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Splat Viewer</title>
+  <meta charset="utf-8">
+  <style>
+    * { margin: 0 } body { background: #000; overflow: hidden; }
+  </style>
 </head>
 <body>
-  <script type="importmap">
-    {
-      "imports": {
-        "three": "https://cdn.jsdelivr.net/npm/three@0.176.0/build/three.module.js",
-        "@mkkellogg/gaussian-splats-3d": "https://cdn.jsdelivr.net/npm/@mkkellogg/gaussian-splats-3d@0.4.7/build/gaussian-splats-3d.module.js"
-      }
-    }
-  </script>
-  <script type="module">
-    import * as THREE from 'three';
-    import * as GaussianSplats3D from '@mkkellogg/gaussian-splats-3d';
-    // your code here
-  </script>
+<script type="module">
+  import * as GaussianSplats3D from 
+    'https://cdn.jsdelivr.net/npm/@mkkellogg/gaussian-splats-3d@latest/src/index.js';
+
+  const viewer = new GaussianSplats3D.Viewer({
+    initialCameraPosition: [0, 0, 5],
+    initialCameraLookAt: [0, 0, 0],
+  });
+
+  await viewer.addSplatScene('YOUR_HUGGINGFACE_URL_HERE');
+  viewer.start();
+</script>
 </body>
 </html>

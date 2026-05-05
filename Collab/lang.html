@@ -1,0 +1,442 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&family=Noto+Serif+SC:wght@400;700&family=Mukta:wght@400;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --c1: #20aefe;
+      --c2: #58ff74;
+      --c3: #f595ab;
+      --c4: #faf4e4;
+      --c5: #ffd9fc;
+      --c6: #dcf731;
+      --c7: #69c3fc;
+
+      --english-color: #20aefe;
+      --text-shadow: 0 0 10px rgba(255,255,255,0.22);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      min-height: 100%;
+    }
+
+    body {
+      overflow-x: hidden;
+      overflow-y: auto;
+      background: linear-gradient(
+        120deg,
+        #20aefe,
+        #ffd9fc,
+        #faf4e4,
+        #69c3fc,
+        #f595ab
+      );
+      background-size: 220% 220%;
+      animation: bgMove 24s ease infinite;
+      position: relative;
+    }
+
+    @keyframes bgMove {
+      0%   { background-position: 0% 50%; }
+      50%  { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* full-canvas gradient wash over everything */
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 50;
+      background:
+        linear-gradient(
+          135deg,
+          rgba(32, 174, 254, 0.22),
+          rgba(255, 217, 252, 0.18),
+          rgba(220, 247, 49, 0.12),
+          rgba(245, 149, 171, 0.22),
+          rgba(105, 195, 252, 0.18)
+        );
+      mix-blend-mode: screen;
+    }
+
+    .canvas {
+      width: 100%;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      gap: 1.6vh;
+      padding: 4vh 5vw 6vh;
+      position: relative;
+      z-index: 1;
+    }
+
+    .phrase {
+      position: relative;
+      display: block;
+      max-width: 62vw;
+      width: fit-content;
+      cursor: pointer;
+      line-height: 0.92;
+      letter-spacing: -0.035em;
+      transition:
+        opacity 0.65s ease,
+        color 0.65s ease,
+        transform 0.9s ease,
+        filter 0.65s ease;
+      text-shadow: var(--text-shadow);
+      animation: drift 13s ease-in-out infinite;
+      will-change: transform, opacity, filter;
+      user-select: none;
+      margin-top: -0.2em;
+      margin-bottom: -0.1em;
+      z-index: 1;
+    }
+
+    .phrase br {
+      display: block;
+    }
+
+    .word {
+      display: inline-block;
+      will-change: transform;
+      transition: transform 0.35s ease;
+    }
+
+    .word-space {
+      display: inline-block;
+      width: 0.32em;
+    }
+
+    .word-line {
+      display: block;
+      height: 0;
+    }
+
+    .align-left {
+      align-self: flex-start;
+      text-align: left;
+    }
+
+   
+
+    .align-right {
+      align-self: flex-end;
+      text-align: right;
+    }
+
+    .en {
+      font-family: "Poppins", sans-serif;
+      font-weight: 500;
+      color: var(--english-color);
+    }
+
+    .zh {
+      font-family: "Noto Serif SC", serif;
+      font-weight: 700;
+    }
+
+    .hi {
+      font-family: "Mukta", sans-serif;
+      font-weight: 700;
+    }
+
+    .tone-1 { color: var(--c1); }
+    .tone-2 { color: var(--c2); }
+    .tone-3 { color: var(--c3); }
+    .tone-4 { color: var(--c4); }
+    .tone-5 { color: var(--c5); }
+    .tone-6 { color: var(--c6); }
+    .tone-7 { color: var(--c7); }
+
+    .blur {
+      filter: blur(8px);
+      opacity: 0.16;
+      transition: all 0.7s ease;
+    }
+
+    .size-1 { font-size: clamp(2.2rem, 4.4vw, 4.1rem); }
+    .size-2 { font-size: clamp(2.4rem, 4.9vw, 4.5rem); }
+    .size-3 { font-size: clamp(1.9rem, 3.9vw, 3.5rem); }
+
+    .phrase:hover {
+      transform: translateY(-6px) scale(1.01);
+      opacity: 1;
+      filter: blur(0);
+      z-index: 20;
+    }
+
+    .phrase:not(:hover) {
+      opacity: 0.96;
+    }
+
+    /* stronger, more distinct float */
+    @keyframes drift {
+      0%   { transform: translate3d(0px, 0px, 0px) rotate(0deg); }
+      20%  { transform: translate3d(8px, -10px, 0px) rotate(0.2deg); }
+      40%  { transform: translate3d(-6px, -18px, 0px) rotate(-0.25deg); }
+      60%  { transform: translate3d(7px, -12px, 0px) rotate(0.15deg); }
+      80%  { transform: translate3d(-5px, -6px, 0px) rotate(-0.15deg); }
+      100% { transform: translate3d(0px, 0px, 0px) rotate(0deg); }
+    }
+
+    @media (max-width: 900px) {
+      .canvas {
+        padding: 4vh 5vw 7vh;
+        gap: 1.2vh;
+      }
+
+      .phrase {
+        max-width: 78vw;
+        line-height: 0.95;
+      }
+
+      .size-1 { font-size: clamp(1.9rem, 5.7vw, 3.5rem); }
+      .size-2 { font-size: clamp(2.1rem, 6.2vw, 3.8rem); }
+      .size-3 { font-size: clamp(1.7rem, 5vw, 3rem); }
+    }
+
+    @media (max-width: 600px) {
+      .canvas {
+        padding: 4vh 4vw 6vh;
+        gap: 1vh;
+      }
+
+      .phrase {
+        max-width: 90vw;
+        align-self: flex-start !important;
+        text-align: left !important;
+        margin-top: -0.05em;
+        margin-bottom: 0;
+      }
+
+      .blur {
+        filter: blur(5px);
+        opacity: 0.22;
+      }
+
+      .size-1 { font-size: clamp(1.7rem, 7.5vw, 2.8rem); }
+      .size-2 { font-size: clamp(1.9rem, 8.3vw, 3.1rem); }
+      .size-3 { font-size: clamp(1.5rem, 6.7vw, 2.5rem); }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="canvas" id="canvas"></div>
+
+  <script type="module">
+    import {
+      animate,
+      utils
+    } from "https://esm.sh/animejs@4.1.1";
+
+    const phrases = [
+      {
+        zh:`当你听我说一种语言的时候<br>你真的认识我吗`,
+        en:`When you hear me in one language<br>do you actually know me`,
+        hi:`जब तुम मुझे एक भाषा में सुनते हो<br>क्या तुम सच में मुझे जानते हो`
+      },
+      {
+        zh:`我先学会了<br>“机缘巧合”<br>然后才学会<br>“辣椒”`,
+        en:`I learned “serendipity”<br>before I learned “jalapeno”`,
+        hi:`मैंने पहले सीखा<br>“संयोग”<br>और बाद में सीखा<br>“मिर्च”`
+      },
+      {
+        zh:`情绪先发生<br>语言总是慢一步抵达<br>像迟到的解释`,
+        en:`Emotion arrives first<br>language follows later<br>always a little too late to name it`,
+        hi:`भावना पहले आती है<br>भाषा हमेशा देर से पहुँचती है<br>जैसे कोई देर से दिया गया स्पष्टीकरण`
+      },
+      {
+        zh:`在母语里<br>我其实很好笑<br>只是你们永远不会知道`,
+        en:`In my mother tongue<br>I am actually quite funny<br>you just may never know`,
+        hi:`मेरी मातृभाषा में<br>मैं असल में बहुत मज़ाकिया हूँ<br>लेकिन तुम कभी नहीं जान पाओगे`
+      },
+      {
+        zh:`我换一种语言<br>就换了一种性格`,
+        en:`I switch language<br>and I switch personality`,
+        hi:`मैं भाषा बदलता हूँ<br>तो मेरी शख्सियत भी बदल जाती है`
+      },
+      {
+        zh:`有时，我用一种语言思考，<br>却用另一种语言说出来。`,
+        en:`Sometimes I think in one language<br>but speak it out in another`,
+        hi:`कभी-कभी मैं एक भाषा में सोचता हूँ<br>और दूसरी भाषा में बोलता हूँ`
+      },
+      {
+        zh:`既然对方根本没有同样的感觉，<br>说出来又有什么意义呢？`,
+        en:`what's the point of saying it<br>when it doesn't even feel the same way`,
+        hi:`इसका क्या फायदा कहने का<br>जब एहसास ही वैसा नहीं होता`
+      },
+      {
+        zh:`有时，<br>就连自己的语言也让人感到陌生。`,
+        en:`Sometimes,<br>even one's own language<br>feels like a stranger.`,
+        hi:`कभी-कभी<br>अपनी ही भाषा<br>अजनबी लगती है`
+      },
+      {
+        zh:`我停顿并非为了制造效果,<br>只是在用错误的语言寻找那个词。`,
+        en:`I pause<br>not for effect<br>just looking for a word<br>in the wrong language`,
+        hi:`मैं रुकता हूँ<br>दिखावे के लिए नहीं<br>बस एक शब्द ढूँढ़ रहा हूँ<br>गलत भाषा में`
+      },
+      {
+        zh:`我选择解释，而非感受——,<br>因为英语只允许我做这一点。`,
+        en:`I explain instead of feeling<br>because that’s all English lets me do`,
+        hi:`मैं महसूस करने के बजाय समझाता हूँ<br>क्योंकि अंग्रेज़ी मुझे बस यही करने देती है`
+      },
+      {
+        zh:`我总是差一点就要说出口，<br>却从未真正说出来。`,
+        en:`I’m always almost saying it<br>never quite there`,
+        hi:`मैं हमेशा कहने ही वाला होता हूँ<br>मगर कभी पूरा नहीं कह पाता`
+      },
+      {
+        zh:`在翻译之前<br>它本来是有意义的`,
+        en:`it made sense<br>before I tried to translate it`,
+        hi:`यह समझ में आ रहा था<br>इससे पहले कि मैंने इसे अनुवाद करने की कोशिश की`
+      }
+    ];
+
+    const canvas = document.getElementById("canvas");
+
+    const sizeClasses = ["size-1", "size-2", "size-3"];
+    const alignClasses = [
+      "align-left",
+      "align-right",
+      "align-left",
+      "align-right",
+      "align-left",
+      "align-right",
+      "align-left",
+      "align-right",
+      "align-left"
+    ];
+
+    const colorClasses = [
+      "tone-1",
+      "tone-2",
+      "tone-3",
+      "tone-4",
+      "tone-5",
+      "tone-6",
+      "tone-7"
+    ];
+
+    function wrapInteractiveText(html, lang) {
+      const lines = html.split("<br>");
+      const isChinese = lang === "zh";
+
+      return lines.map(line => {
+        if (isChinese) {
+          return [...line]
+            .map(char => `<span class="word">${char}</span>`)
+            .join("");
+        }
+
+        return line
+          .split(" ")
+          .map(word => `<span class="word">${word}</span>`)
+          .join(`<span class="word-space"></span>`);
+      }).join(`<span class="word-line"></span>`);
+    }
+
+    function enableJumble(div, lang) {
+      const pieces = div.querySelectorAll(".word");
+
+      pieces.forEach(piece => {
+        piece.addEventListener("pointerenter", () => {
+          if (lang === "en") return;
+
+          animate(piece, {
+            x: utils.random(-18, 18),
+            y: utils.random(-14, 14),
+            rotate: utils.random(-8, 8),
+            duration: 650,
+            ease: "outExpo"
+          });
+        });
+      });
+    }
+
+    function resetJumble(div) {
+      const pieces = div.querySelectorAll(".word");
+      if (!pieces.length) return;
+
+      animate(pieces, {
+        x: 0,
+        y: 0,
+        rotate: 0,
+        duration: 900,
+        ease: "inOutExpo"
+      });
+    }
+
+    phrases.forEach((p, i) => {
+      const div = document.createElement("div");
+
+      const sizeClass = sizeClasses[i % sizeClasses.length];
+      const alignClass = alignClasses[i % alignClasses.length];
+      const revealedColorClass = colorClasses[i % colorClasses.length];
+
+      let currentLang = "en";
+      let currentIndex = 0;
+
+      function renderPhrase() {
+        if (currentLang === "en") {
+          div.className = `phrase en ${sizeClass} ${alignClass}`;
+          div.innerHTML = p.en;
+        } else {
+          div.className = `phrase ${currentLang} ${sizeClass} ${alignClass} ${revealedColorClass}`;
+          div.innerHTML = wrapInteractiveText(p[currentLang], currentLang);
+          enableJumble(div, currentLang);
+        }
+      }
+
+      renderPhrase();
+
+      div.style.animationDuration = `${11 + Math.random() * 5}s`;
+      div.style.animationDelay = `${Math.random() * 2.5}s`;
+
+      const langOrder = ["en", "zh", "hi"];
+
+      div.addEventListener("mouseenter", () => {
+        document.querySelectorAll(".phrase").forEach(el => {
+          if (el !== div) el.classList.add("blur");
+        });
+        div.classList.remove("blur");
+      });
+
+      div.addEventListener("click", () => {
+        currentIndex = (currentIndex + 1) % langOrder.length;
+        currentLang = langOrder[currentIndex];
+
+        renderPhrase();
+
+        animate(div, {
+          opacity: [0.7, 1],
+          y: [10, 0],
+          duration: 900,
+          ease: "outQuad"
+        });
+      });
+
+      div.addEventListener("mouseleave", () => {
+        document.querySelectorAll(".phrase").forEach(el => {
+          el.classList.remove("blur");
+        });
+        resetJumble(div);
+      });
+
+      canvas.appendChild(div);
+    });
+  </script>
+</body>
+</html>

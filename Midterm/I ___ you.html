@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>I ____ you</title>
+
+  <style>
+    html, body {
+      margin: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: rgb(107, 2, 2);
+      font-family: 'Courier New', Courier, monospace;
+    }
+
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+    }
+
+    .sentence {
+      font-size: 7rem;
+      color: whitesmoke;
+      user-select: none;
+      text-align: center;
+      line-height: 1.1;
+    }
+
+    #changing-word {
+      display: inline-block;
+      min-width: 420px;
+      text-align: center;
+    }
+
+    /* underline only AFTER first click */
+    .active {
+      text-decoration: underline;
+      text-underline-offset: 0.15em;
+      text-decoration-thickness: 2px;
+    }
+
+    body.ready {
+      cursor: help;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="sentence">
+    I <span id="changing-word">_________</span> you.
+  </div>
+
+  <script>
+    const words = [
+      "hate",
+      "love",
+      "miss",
+      "care for",
+      "long for",
+      "yearn for",
+      "cry for",
+      "called",
+      "will wait for",
+      "accept",
+      "regret",
+      "need",
+      "like",
+      "lust",
+      "kiss",
+      "fool"
+    ];
+
+    const changingWord = document.getElementById("changing-word");
+    let index = -1;
+
+    document.addEventListener("click", () => {
+
+      // still cycling words
+      if (index < words.length - 1) {
+        index++;
+
+        changingWord.textContent = words[index];
+
+        // remove dashes → add underline
+        changingWord.classList.add("active");
+
+        if (words[index] === "fool") {
+          document.body.classList.add("ready");
+        }
+
+        return;
+      }
+
+      // only after "fool"
+      if (words[index] === "fool") {
+        window.location.href = "gotcha.html"; // replace
+      }
+    });
+
+    
+  </script>
+
+</body>
+</html>
